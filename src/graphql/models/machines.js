@@ -11,7 +11,7 @@ const machineSchema = new Schema({
   },
   reports:[{
     type: Schema.Types.ObjectId,
-    required: true,
+    required: false,
     ref: 'injection_reports'
   }]
 

@@ -6,7 +6,7 @@ const typeDefs = `
     scalar Date
 
     type Query {
-        productionReports: [ShiftReport]
+        machines: [Machine] 
     }
 
     type Machine {
@@ -22,7 +22,7 @@ const typeDefs = `
         injection: [InjectionReport]
     }
 
-    type injectionReport {
+    type InjectionReport {
         _id: ID!
         reportDate: Date
         shift: String
@@ -34,11 +34,11 @@ const typeDefs = `
         totalPiecesNG: Int
         deadMin: Int
         efficiency: Float
-        production: [injectionProduction]
+        production: [InjectionProduction]
         deadTime: [DeadTime]
     }
 
-    type injectionProduction {
+    type InjectionProduction {
         _id: ID!
         partNumber: PartNumber
         molde: Molde
@@ -63,25 +63,23 @@ const typeDefs = `
         moldeNumber: String!
     }
 
-    Issue {
+    type Issue {
         _id: ID!
         issueName: String!
     }
 
 
-
-
     type Mutation {
-        createMachine (input: newMachine): Machine
-        createMolde (input: newMolde): Molde
+        newMachine(_id: ID, input: NewMachine): Machine
+        newMolde(_id: ID, input: NewMolde): Molde
     }
 
-    input newMachine {
-        mmachineNumber: String!
+    input NewMachine {
+        machineNumber: String!
         machineSerial: String!
     }
 
-    input newMolde {
+    input NewMolde {
         moldeSerial: String!
         moldeNumber: String!
     }

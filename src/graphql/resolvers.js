@@ -1,13 +1,22 @@
-import path from './models/path.js';
-import techs from './models/productions.js';
+import machines from './models/machines.js'
+import moldes from './models/moldes.js'
 
 export const resolvers = {
     Query: {
-        async paths(){
-            return await path.find();
-          },
-          async techs(){
-            return await techs.find().populate({path: 'paths', model: 'path'});
+        async machines(){
+            return await machines.find();
           }
+    },
+    Mutation: {
+      async newMachine(_, { input }){
+        const newMachine = new machines(input);
+        await newMachine.save();   
+        return newMachine;
+      },
+      async newMolde(_, { input }){
+        const newMolde = new moldes(input);
+        await newMolde.save();   
+        return newMolde;
+      }
     }
 }
