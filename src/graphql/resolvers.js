@@ -1,10 +1,21 @@
 import machines from './models/machines.js'
 import moldes from './models/moldes.js'
+import parts from './models/parts.js'
+import issues from './models/issues.js'
 
 export const resolvers = {
     Query: {
         async machines(){
             return await machines.find();
+          },
+          async moldes(){
+            return await moldes.find();
+          },
+          async parts(){
+            return await parts.find();
+          },
+          async machines(){
+            return await issues.find();
           }
     },
     Mutation: {

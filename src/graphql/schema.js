@@ -7,6 +7,9 @@ const typeDefs = `
 
     type Query {
         machines: [Machine] 
+        moldes: [Molde]
+        parts: [PartNumber]
+        issues: [Issue]
     }
 
     type Machine {
