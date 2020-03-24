@@ -17,6 +17,16 @@ export const resolvers = {
         const newMolde = new moldes(input);
         await newMolde.save();   
         return newMolde;
+      },
+      async newPartNumber(_, { input }){
+        const newPartNumber = new parts(input);
+        await newPartNumber.save();   
+        return newPartNumber;
+      },
+      async newIssue(_, { input }){
+        const newIssue = new issues(input);
+        await newIssue.save();   
+        return newIssue;
       }
     }
 }

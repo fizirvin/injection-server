@@ -59,8 +59,8 @@ const typeDefs = `
 
     type Molde {
         _id: ID!
-        moldeSerial: String!
         moldeNumber: String!
+        moldeSerial: String!
     }
 
     type Issue {
@@ -72,6 +72,8 @@ const typeDefs = `
     type Mutation {
         newMachine(_id: ID, input: NewMachine): Machine
         newMolde(_id: ID, input: NewMolde): Molde
+        newPartNumber(_id: ID, input: NewPartNumber): PartNumber
+        newIssue(_id: ID, input: NewIssue): Issue
     }
 
     input NewMachine {
@@ -80,8 +82,16 @@ const typeDefs = `
     }
 
     input NewMolde {
-        moldeSerial: String!
         moldeNumber: String!
+        moldeSerial: String!
+    }
+
+    input NewPartNumber {
+        partNumber: String!
+    }
+
+    input NewIssue {
+        issueName: String!
     }
 
 

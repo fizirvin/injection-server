@@ -1,11 +1,11 @@
 import {Schema, model } from 'mongoose';
 
 const moldeSchema = new Schema({
-  moldeSerial: {
+  moldeNumber: {
     type: String,
     required: true
   },
-  moldeNumber: {
+  moldeSerial: {
     type: String,
     required: true
   }
