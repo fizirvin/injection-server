@@ -5,10 +5,14 @@ const machineSchema = new Schema({
     type: String,
     required: true
   },
-  production:[{
+  machineSerial:{
+    type: String,
+    required: true
+  },
+  reports:[{
     type: Schema.Types.ObjectId,
     required: true,
-    ref: 'production'
+    ref: 'injection_reports'
   }]
 
 

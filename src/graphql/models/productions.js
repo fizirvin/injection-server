@@ -5,11 +5,11 @@ const productionSchema = new Schema({
     type: String,
     required: true
   },
-  shifhtReports:[{
+  injection:[{
     type: Schema.Types.ObjectId,
     required: true,
-    ref: 'shiftReport'
+    ref: 'injection_reports'
   }]
 });
 
-export default model('production', productionSchema);
+export default model('productions', productionSchema);

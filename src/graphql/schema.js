@@ -12,35 +12,59 @@ const typeDefs = `
     type Machine {
         _id: ID!
         machineNumber: String!
-        production: [Production]
+        machineSerial: String!
+        reports: [InjectionReport]
     }
 
     type Production {
         _id: ID!
         productionDate: Date!
-        shiftReports: [ShiftReport]
+        injection: [InjectionReport]
     }
 
-    type ShiftReport {
+    type injectionReport {
         _id: ID!
+        reportDate: Date
+        shift: String
         leader: String
+        machine: Machine
         operatorMachine: String
         qualityInspector: String
+        totalPiecesOK: Int
+        totalPiecesNG: Int
+        deadMin: Int
         efficiency: Float
-        partNumber: [PartNumber]
+        production: [injectionProduction]
         deadTime: [DeadTime]
     }
 
-    type PartNumber {
-        partNumber: String
-        molde: String
-        quantityGood: Int
-        quantityScrap: Int
+    type injectionProduction {
+        _id: ID!
+        partNumber: PartNumber
+        molde: Molde
+        ok: Int
+        ng: Int
     }
 
     type DeadTime {
-        issue: String
+        _id: ID!
+        issueId: Issue
         deadTime: Int
+    }
+
+    type PartNumber {
+        _id: ID!
+        partNumber: String!
+    }
+
+    type Molde {
+        _id: ID!
+        moldeSerial: String!
+    }
+
+    Issue {
+        _id: ID!
+        issueName: String!
     }
 
 

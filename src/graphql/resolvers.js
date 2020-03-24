@@ -1,5 +1,5 @@
 import path from './models/path.js';
-import techs from './models/production.js';
+import techs from './models/productions.js';
 
 export const resolvers = {
     Query: {
