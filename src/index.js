@@ -1,6 +1,6 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
-
+import cors from 'cors';
 import { resolvers }  from './graphql/resolvers.js'
 import schema from './graphql/schema.js';
 import { api } from '../config.js';
@@ -12,6 +12,7 @@ import { connect } from './database';
 
 const PORT = api.port;
 const app = express();
+app.use(cors());
 
 app.get('/', (req, res) =>{
     res.json({
@@ -19,7 +20,7 @@ app.get('/', (req, res) =>{
     })
   });
 
-  app.use('/gra', graphqlHTTP({
+  app.use('/injection', graphqlHTTP({
     graphiql: true,
     schema: schema,
     rootValue: resolvers,

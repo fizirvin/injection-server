@@ -14,7 +14,7 @@ export const resolvers = {
           async parts(){
             return await parts.find();
           },
-          async machines(){
+          async issues(){
             return await issues.find();
           }
     },
