@@ -2,6 +2,7 @@ import machines from './models/machines.js'
 import moldes from './models/moldes.js'
 import parts from './models/parts.js'
 import issues from './models/issues.js'
+import programs from './models/programs.js'
 
 export const resolvers = {
     Query: {
@@ -16,6 +17,11 @@ export const resolvers = {
           },
           async issues(){
             return await issues.find();
+          },
+          async programs(){
+            return await programs.find().populate({path: 'machineNumber', model: 'machines'})
+            .populate({path: 'moldeNumber', model: 'moldes'})
+            .populate({path: 'partNumber', model: 'parts'});
           }
     },
     Mutation: {
@@ -50,6 +56,14 @@ export const resolvers = {
       },
       async updateIssue(_,{ _id, input }){
         return await issues.findByIdAndUpdate(_id,input, {new: true });
+      },
+      async newProgram(_, { input }){
+        const newProgram = new programs(input);
+        await newProgram.save();   
+        return newProgram;
+      },
+      async updateProgram(_,{ _id, input }){
+        return await programs.findByIdAndUpdate(_id,input, {new: true });
       },
     }
 }

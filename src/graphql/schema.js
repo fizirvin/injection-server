@@ -10,6 +10,7 @@ const typeDefs = `
         moldes: [Molde]
         parts: [PartNumber]
         issues: [Issue]
+        programs: [Program]
     }
 
     type Machine {
@@ -74,7 +75,7 @@ const typeDefs = `
     type Program {
         _id: ID!
         machineNumber: Machine!
-        molde: Molde!
+        moldeNumber: Molde!
         partNumber: PartNumber!
         cycles: Int!
         capacity: Int!
@@ -93,6 +94,9 @@ const typeDefs = `
 
         newIssue(_id: ID, input: NewIssue): Issue
         updateIssue(_id: ID, input: NewIssue): Issue
+
+        newProgram(_id: ID, input: NewProgram): Program
+        updateProgram(_id: ID, input: NewProgram): Program
     }
 
     input NewMachine {
@@ -111,6 +115,14 @@ const typeDefs = `
 
     input NewIssue {
         issueName: String!
+    }
+
+    input NewProgram {
+        machineNumber: ID
+        moldeNumber: ID
+        partNumber: ID
+        cycles: Int!
+        capacity: Int!
     }
 
 
