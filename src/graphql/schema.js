@@ -71,12 +71,28 @@ const typeDefs = `
         issueName: String!
     }
 
+    type Program {
+        _id: ID!
+        machineNumber: Machine!
+        molde: Molde!
+        partNumber: PartNumber!
+        cycles: Int!
+        capacity: Int!
+    }
+
 
     type Mutation {
         newMachine(_id: ID, input: NewMachine): Machine
+        updateMachine(_id: ID, input: NewMachine): Machine
+
         newMolde(_id: ID, input: NewMolde): Molde
+        updateMolde(_id: ID, input: NewMolde): Molde
+
         newPartNumber(_id: ID, input: NewPartNumber): PartNumber
+        updatePartNumber(_id: ID, input: NewPartNumber): PartNumber
+
         newIssue(_id: ID, input: NewIssue): Issue
+        updateIssue(_id: ID, input: NewIssue): Issue
     }
 
     input NewMachine {
