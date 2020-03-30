@@ -59,11 +59,19 @@ export const resolvers = {
       },
       async newProgram(_, { input }){
         const newProgram = new programs(input);
-        await newProgram.save();   
-        return newProgram;
+       
+        return await newProgram.save().
+        then((newProgram) => programs.findOne({ _id: newProgram._id })
+          .populate({path: 'machineNumber', model: 'machines'})
+          .populate({path: 'moldeNumber', model: 'moldes'})
+          .populate({path: 'partNumber', model: 'parts'})
+        );
       },
       async updateProgram(_,{ _id, input }){
-        return await programs.findByIdAndUpdate(_id,input, {new: true });
+        return await programs.findByIdAndUpdate(_id,input, {new: true })
+        .populate({path: 'machineNumber', model: 'machines'})
+        .populate({path: 'moldeNumber', model: 'moldes'})
+        .populate({path: 'partNumber', model: 'parts'});
       },
     }
 }
