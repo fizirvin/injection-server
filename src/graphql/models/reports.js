@@ -21,16 +21,16 @@ const injectionReportSchema = new Schema({
   qualityInspector: {
     type: String
   },
-  totalPiecesOK: {
+  totalOK: {
     type: Number
   },
-  totalPiecesNG: {
+  totalNG: {
     type: Number
   },
-  deadMin: {
+  downtime: {
     type: Number
   },
-  eficciency: {
+  efficiency: {
     type: Number
   },
   production: [{
@@ -63,4 +63,4 @@ const injectionReportSchema = new Schema({
   }]
 });
 
-export default model('injection_reports', injectionReportSchema);
+export default model('reports', injectionReportSchema);

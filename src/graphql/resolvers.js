@@ -3,6 +3,7 @@ import moldes from './models/moldes.js'
 import parts from './models/parts.js'
 import issues from './models/issues.js'
 import programs from './models/programs.js'
+import reports from './models/reports.js'
 
 export const resolvers = {
     Query: {
@@ -22,6 +23,10 @@ export const resolvers = {
             return await programs.find().populate({path: 'machineNumber', model: 'machines'})
             .populate({path: 'moldeNumber', model: 'moldes'})
             .populate({path: 'partNumber', model: 'parts'});
+          },
+          async reports(){
+            return await reports.find()
+            .populate({path: 'machine', model: 'machines'})
           }
     },
     Mutation: {

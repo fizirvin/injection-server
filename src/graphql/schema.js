@@ -11,6 +11,7 @@ const typeDefs = `
         parts: [PartNumber]
         issues: [Issue]
         programs: [Program]
+        reports: [InjectionReport]
     }
 
     type Machine {
@@ -34,10 +35,10 @@ const typeDefs = `
         machine: Machine
         operatorMachine: String
         qualityInspector: String
-        totalPiecesOK: Int
-        totalPiecesNG: Int
-        deadMin: Int
-        efficiency: Float
+        totalOK: Int
+        totalNG: Int
+        downtime: Int
+        efficiency: Int
         production: [InjectionProduction]
         deadTime: [DeadTime]
     }
