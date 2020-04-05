@@ -7,19 +7,13 @@ const injectionReportSchema = new Schema({
   shift: {
     type: String
   },
-  leader: {
-    type: String
-  },
   machine: {
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'machines'
   },
-  operatorMachine: {
-    type: String
-  },
-  qualityInspector: {
-    type: String
+  totalReal: {
+    type: Number
   },
   totalOK: {
     type: Number
@@ -27,11 +21,14 @@ const injectionReportSchema = new Schema({
   totalNG: {
     type: Number
   },
+  totalTime: {
+    type: Number
+  },
   downtime: {
     type: Number
   },
   efficiency: {
-    type: Number
+    type: Schema.Types.Number
   },
   production: [{
     partNumber: {
@@ -44,10 +41,22 @@ const injectionReportSchema = new Schema({
       required: true,
       ref: 'moldes'
     },
-    ok: {
+    real: {
       type: Number
     },
     ng: {
+      type: Number
+    },
+    ok: {
+      type: Number
+    },
+    time: {
+      type: Number
+    },
+    oee: {
+      type: Number
+    },
+    capacity: {
       type: Number
     }
   }],

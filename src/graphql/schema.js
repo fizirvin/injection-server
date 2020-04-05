@@ -31,14 +31,13 @@ const typeDefs = `
         _id: ID!
         reportDate: Date
         shift: String
-        leader: String
         machine: Machine
-        operatorMachine: String
-        qualityInspector: String
+        totalReal: Int
         totalOK: Int
         totalNG: Int
+        totalTime: Int
         downtime: Int
-        efficiency: Int
+        efficiency: Float
         production: [InjectionProduction]
         deadTime: [DeadTime]
     }
@@ -47,8 +46,12 @@ const typeDefs = `
         _id: ID!
         partNumber: PartNumber
         molde: Molde
-        ok: Int
+        real: Int
         ng: Int
+        ok: Int
+        time: Int
+        oee: Float
+        capacity: Int
     }
 
     type DeadTime {
@@ -84,6 +87,8 @@ const typeDefs = `
 
 
     type Mutation {
+        newInjectionReport(_id: ID, input: NewInjectionReport): InjectionReport
+        
         newMachine(_id: ID, input: NewMachine): Machine
         updateMachine(_id: ID, input: NewMachine): Machine
 
@@ -98,6 +103,8 @@ const typeDefs = `
 
         newProgram(_id: ID, input: NewProgram): Program
         updateProgram(_id: ID, input: NewProgram): Program
+
+        
     }
 
     input NewMachine {
@@ -126,7 +133,19 @@ const typeDefs = `
         capacity: Int!
     }
 
-
+    input NewInjectionReport {
+        
+        reportDate: Date
+        shift: String
+        machine: ID
+        totalReal: Int
+        totalOK: Int
+        totalNG: Int
+        totalTime: Int
+        downtime: Int
+        efficiency: Float
+        
+    }
 
 `;
 

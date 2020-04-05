@@ -78,5 +78,10 @@ export const resolvers = {
         .populate({path: 'moldeNumber', model: 'moldes'})
         .populate({path: 'partNumber', model: 'parts'});
       },
+      async newInjectionReport(_, { input }){
+        const newReport = new reports(input);
+        await newReport.save();   
+        return newReport;
+      },
     }
 }
