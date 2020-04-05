@@ -81,7 +81,7 @@ export const resolvers = {
       },
       async newInjectionReport(_, { input }){
         const newReport = new reports(input);
-        await newReport.save();   
+        await newReport.save().populate({path: 'machine', model: 'machines'})
         return newReport;
       },
     }
