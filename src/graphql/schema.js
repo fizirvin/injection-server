@@ -1,8 +1,9 @@
 import { makeExecutableSchema } from "graphql-tools";
 import { resolvers } from "./resolvers.js";
 
-const typeDefs = `
 
+const typeDefs = `
+    scalar Decimal
     scalar Date
 
     type Query {
@@ -37,7 +38,7 @@ const typeDefs = `
         totalNG: Int
         totalTime: Int
         downtime: Int
-        efficiency: Float
+        efficiency: Decimal
         production: [InjectionProduction]
         deadTime: [DeadTime]
     }

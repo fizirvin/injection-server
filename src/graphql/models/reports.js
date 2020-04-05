@@ -28,7 +28,7 @@ const injectionReportSchema = new Schema({
     type: Number
   },
   efficiency: {
-    type: Schema.Types.Number
+    type: Schema.Types.Decimal128
   },
   production: [{
     partNumber: {
