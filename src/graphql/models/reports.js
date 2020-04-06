@@ -21,6 +21,9 @@ const injectionReportSchema = new Schema({
   totalNG: {
     type: Number
   },
+  totalCapacity: {
+    type: Number
+  },
   totalTime: {
     type: Number
   },

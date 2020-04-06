@@ -36,6 +36,7 @@ const typeDefs = `
         totalReal: Int
         totalOK: Int
         totalNG: Int
+        totalCapacity: Int
         totalTime: Int
         downtime: Int
         efficiency: Decimal
@@ -142,9 +143,10 @@ const typeDefs = `
         totalReal: Int
         totalOK: Int
         totalNG: Int
+        totalCapacity: Int
         totalTime: Int
         downtime: Int
-        efficiency: Float
+        efficiency: Decimal
         
     }
 
