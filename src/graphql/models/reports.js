@@ -36,17 +36,15 @@ const injectionReportSchema = new Schema({
   production: [{
     partNumber: {
       type: Schema.Types.ObjectId,
-      required: true,
       ref: 'parts'
     },
     molde:{
       type: Schema.Types.ObjectId,
-      required: true,
       ref: 'moldes'
     },
     real: {
       type: Number
-    },
+    },  
     ng: {
       type: Number
     },
@@ -57,19 +55,18 @@ const injectionReportSchema = new Schema({
       type: Number
     },
     oee: {
-      type: Number
+      type: Schema.Types.Decimal128
     },
     capacity: {
       type: Number
     }
   }],
-  deadTime: [{
+  downtimeDetail: [{
     issueId: {
       type: Schema.Types.ObjectId,
-      required: true,
       ref: 'issues'
     },
-    deadTime: {
+    mins: {
       type: Number
     }
   }]

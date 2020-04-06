@@ -41,7 +41,7 @@ const typeDefs = `
         downtime: Int
         efficiency: Decimal
         production: [InjectionProduction]
-        deadTime: [DeadTime]
+        downtimeDetail: [DowntimeDetail]
     }
 
     type InjectionProduction {
@@ -52,14 +52,14 @@ const typeDefs = `
         ng: Int
         ok: Int
         time: Int
-        oee: Float
+        oee: Decimal
         capacity: Int
     }
 
-    type DeadTime {
+    type DowntimeDetail {
         _id: ID!
         issueId: Issue
-        deadTime: Int
+        mins: Int
     }
 
     type PartNumber {
@@ -147,7 +147,25 @@ const typeDefs = `
         totalTime: Int
         downtime: Int
         efficiency: Decimal
+        production: [InjectionProductionInput]
+        downtimeDetail: [DowntimeDetailInput]
         
+    }
+
+    input InjectionProductionInput {
+        partNumber: ID
+        molde: ID
+        real: Int
+        ng: Int
+        ok: Int
+        time: Int
+        oee: Decimal
+        capacity: Int
+    }
+
+    input DowntimeDetailInput{
+        issueId: ID
+        mins: Int
     }
 
 `;
