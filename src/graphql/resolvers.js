@@ -96,6 +96,8 @@ export const resolvers = {
       then((newReport) => 
         reports.findOne({_id: newReport._id})
         .populate({path: 'machine', model: 'machines'})
+        .populate({path: 'production.partNumber', model: 'parts'})
+        .populate({path: 'production.molde', model: 'moldes'})
       );  
     }
   }
