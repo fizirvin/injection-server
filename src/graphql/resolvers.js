@@ -28,6 +28,10 @@ export const resolvers = {
     async reports(){
       return await reports.find()
       .populate({path: 'machine', model: 'machines'})
+      .populate({path: 'production.partNumber', model: 'parts'})
+      .populate({path: 'production.molde', model: 'moldes'})
+      .populate({path: 'downtimeDetail.issueId', model: 'issues'})
+      
     }
   },
   Mutation: {
@@ -98,6 +102,7 @@ export const resolvers = {
         .populate({path: 'machine', model: 'machines'})
         .populate({path: 'production.partNumber', model: 'parts'})
         .populate({path: 'production.molde', model: 'moldes'})
+        .populate({path: 'downtimeDetail.issueId', model: 'issues'})
       );  
     }
   }
