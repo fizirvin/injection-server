@@ -106,7 +106,7 @@ export const resolvers = {
       );  
     },
     async updateInjectionReport(_,{ _id, input }){
-      return await programs.findByIdAndUpdate(_id,input, {new: true })
+      return await reports.findByIdAndUpdate(_id,input, {new: true })
         .populate({path: 'machine', model: 'machines'})
         .populate({path: 'production.partNumber', model: 'parts'})
         .populate({path: 'production.molde', model: 'moldes'})
