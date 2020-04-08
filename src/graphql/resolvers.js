@@ -104,6 +104,13 @@ export const resolvers = {
         .populate({path: 'production.molde', model: 'moldes'})
         .populate({path: 'downtimeDetail.issueId', model: 'issues'})
       );  
+    },
+    async updateInjectionReport(_,{ _id, input }){
+      return await programs.findByIdAndUpdate(_id,input, {new: true })
+        .populate({path: 'machine', model: 'machines'})
+        .populate({path: 'production.partNumber', model: 'parts'})
+        .populate({path: 'production.molde', model: 'moldes'})
+        .populate({path: 'downtimeDetail.issueId', model: 'issues'});
     }
   }
 }

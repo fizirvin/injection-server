@@ -90,6 +90,7 @@ const typeDefs = `
 
     type Mutation {
         newInjectionReport(_id: ID, input: NewInjectionReport): InjectionReport
+        updateInjectionReport(_id: ID, input: NewInjectionReport): InjectionReport
         
         newMachine(_id: ID, input: NewMachine): Machine
         updateMachine(_id: ID, input: NewMachine): Machine
