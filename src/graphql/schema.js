@@ -13,6 +13,7 @@ const typeDefs = `
         issues: [Issue]
         programs: [Program]
         reports: [InjectionReport]
+        reportsDate(initial: Date, end: Date): [InjectionReport]
     }
 
     type Machine {

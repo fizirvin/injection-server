@@ -31,7 +31,16 @@ export const resolvers = {
       .populate({path: 'production.partNumber', model: 'parts'})
       .populate({path: 'production.molde', model: 'moldes'})
       .populate({path: 'downtimeDetail.issueId', model: 'issues'})
+      .sort({ reportDate: -1 });
       
+    },
+    async reportsDate(parent, args){
+      return await reports.find({ reportDate: { $gte: args.initial, $lte: args.end } })
+      .populate({path: 'machine', model: 'machines'})
+      .populate({path: 'production.partNumber', model: 'parts'})
+      .populate({path: 'production.molde', model: 'moldes'})
+      .populate({path: 'downtimeDetail.issueId', model: 'issues'})
+      .sort({ reportDate: 1 });
     }
   },
   Mutation: {
