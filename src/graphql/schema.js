@@ -13,7 +13,17 @@ const typeDefs = `
         issues: [Issue]
         programs: [Program]
         reports: [InjectionReport]
-        reportsDate(initial: Date, end: Date): [InjectionReport]
+        reportsDate(initial: Date, end: Date): [Flat]
+    }
+
+    type Flat {
+        report: ID
+        date: String
+        machine: ID
+        part: ID
+        molde: ID
+        ok: Int
+        ng: Int
     }
 
     type Machine {
