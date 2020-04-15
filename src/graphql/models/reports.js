@@ -34,6 +34,10 @@ const injectionReportSchema = new Schema({
     type: Schema.Types.Decimal128
   },
   production: [{
+    program: {
+      type: Schema.Types.ObjectId,
+      ref: 'programs'
+    },
     partNumber: {
       type: Schema.Types.ObjectId,
       ref: 'parts'

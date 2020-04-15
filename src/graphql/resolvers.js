@@ -54,6 +54,7 @@ export const resolvers = {
     async reports(){
       return await reports.find()
       .populate({path: 'machine', model: 'machines'})
+      .populate({path: 'program', model: 'programs'})
       .populate({path: 'production.partNumber', model: 'parts'})
       .populate({path: 'production.molde', model: 'moldes'})
       .populate({path: 'downtimeDetail.issueId', model: 'issues'})
@@ -144,6 +145,7 @@ export const resolvers = {
       then((newReport) => 
         reports.findOne({_id: newReport._id})
         .populate({path: 'machine', model: 'machines'})
+        .populate({path: 'program', model: 'programs'})
         .populate({path: 'production.partNumber', model: 'parts'})
         .populate({path: 'production.molde', model: 'moldes'})
         .populate({path: 'downtimeDetail.issueId', model: 'issues'})
@@ -152,6 +154,7 @@ export const resolvers = {
     async updateInjectionReport(_,{ _id, input }){
       return await reports.findByIdAndUpdate(_id,input, {new: true })
         .populate({path: 'machine', model: 'machines'})
+        .populate({path: 'program', model: 'programs'})
         .populate({path: 'production.partNumber', model: 'parts'})
         .populate({path: 'production.molde', model: 'moldes'})
         .populate({path: 'downtimeDetail.issueId', model: 'issues'});

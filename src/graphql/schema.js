@@ -57,6 +57,7 @@ const typeDefs = `
 
     type InjectionProduction {
         _id: ID!
+        program: Program
         partNumber: PartNumber
         molde: Molde
         real: Int
@@ -165,6 +166,7 @@ const typeDefs = `
     }
 
     input InjectionProductionInput {
+        program: ID
         partNumber: ID
         molde: ID
         real: Int
