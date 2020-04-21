@@ -2,6 +2,7 @@ import machines from './models/machines.js'
 import moldes from './models/moldes.js'
 import parts from './models/parts.js'
 import issues from './models/issues.js'
+import defects from './models/defects.js'
 import programs from './models/programs.js'
 import reports from './models/reports.js'
 
@@ -45,6 +46,9 @@ export const resolvers = {
     },
     async issues(){
       return await issues.find();
+    },
+    async defects(){
+      return await defects.find();
     },
     async programs(){
       return await programs.find().populate({path: 'machineNumber', model: 'machines'})
@@ -111,6 +115,14 @@ export const resolvers = {
     },
     async updateIssue(_,{ _id, input }){
       return await issues.findByIdAndUpdate(_id,input, {new: true });
+    },
+    async newDefect(_, { input }){
+      const newDefect = new defects(input);
+        await newDefect.save();   
+        return newDefect;
+    },
+    async updateDefect(_,{ _id, input }){
+      return await defects.findByIdAndUpdate(_id,input, {new: true });
     },
     async newProgram(_, { input }){
         const newProgram = new programs(input);

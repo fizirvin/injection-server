@@ -11,6 +11,7 @@ const typeDefs = `
         moldes: [Molde]
         parts: [PartNumber]
         issues: [Issue]
+        defects: [Defect]
         programs: [Program]
         reports: [InjectionReport]
         reportsDate(initial: Date, end: Date): [Flat]
@@ -90,6 +91,11 @@ const typeDefs = `
         issueName: String!
     }
 
+    type Defect {
+        _id: ID!
+        defectName: String!
+    }
+
     type Program {
         _id: ID!
         machineNumber: Machine!
@@ -116,6 +122,9 @@ const typeDefs = `
         newIssue(_id: ID, input: NewIssue): Issue
         updateIssue(_id: ID, input: NewIssue): Issue
 
+        newDefect(_id: ID, input: NewDefect): Defect
+        updateDefect(_id: ID, input: NewDefect): Defect
+
         newProgram(_id: ID, input: NewProgram): Program
         updateProgram(_id: ID, input: NewProgram): Program
 
@@ -138,6 +147,10 @@ const typeDefs = `
 
     input NewIssue {
         issueName: String!
+    }
+
+    input NewDefect {
+        defectName: String!
     }
 
     input NewProgram {
