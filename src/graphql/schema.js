@@ -14,6 +14,7 @@ const typeDefs = `
         defects: [Defect]
         programs: [Program]
         reports: [InjectionReport]
+        reportsByDate(initial: Date, end: Date): [InjectionReport]
         reportsDate(initial: Date, end: Date): [Flat]
     }
 
