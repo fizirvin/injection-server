@@ -14,7 +14,7 @@ const typeDefs = `
         defects: [Defect]
         programs: [Program]
         reports: [InjectionReport]
-        reportsByDate(initial: Date, end: Date): [InjectionReport]
+        reportsByDate(initial: Date, end: Date): [FlatDownTime]
         reportsDate(initial: Date, end: Date): [Flat]
     }
 
@@ -26,6 +26,15 @@ const typeDefs = `
         molde: ID
         ok: Int
         ng: Int
+    }
+
+    type FlatDownTime {
+        report: ID
+        date: String
+        machine: ID
+        issue: ID
+        issueName: String
+        mins: Int
     }
 
     type Machine {

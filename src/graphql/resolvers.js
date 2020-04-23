@@ -67,13 +67,27 @@ export const resolvers = {
     },
     async reportsByDate(parent, args){
       return await reports.find({ reportDate: { $gte: args.initial, $lte: args.end } })
-      .populate({path: 'machine', model: 'machines'})
-      .populate({path: 'program', model: 'programs'})
-      .populate({path: 'production.partNumber', model: 'parts'})
-      .populate({path: 'production.molde', model: 'moldes'})
       .populate({path: 'downtimeDetail.issueId', model: 'issues'})
-      .sort({ reportDate: -1 });
-      
+      .sort({ reportDate: -1 }).then( report => {
+        const array = [...report]
+        const convert = array.map( item => { 
+          const date = formatDate(item.reportDate);
+          const id = item._id
+          const machine = item.machine
+          const downtime = item.downtimeDetail.map( downtime =>{
+            return { 
+              report: id, 
+              date: date, 
+              machine: machine, 
+              issue: downtime.issueId._id, 
+              issueName: downtime.issueId.issueName, 
+              mins: downtime.mins}
+          })
+          return downtime
+        })
+        let flatDownTime = [].concat.apply([],convert);
+        
+        return flatDownTime })
     },
     async reportsDate(parent, args){
       return await reports.find({ reportDate: { $gte: args.initial, $lte: args.end } })
