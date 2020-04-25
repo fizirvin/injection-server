@@ -62,6 +62,10 @@ export const resolvers = {
       .populate({path: 'production.partNumber', model: 'parts'})
       .populate({path: 'production.molde', model: 'moldes'})
       .populate({path: 'downtimeDetail.issueId', model: 'issues'})
+      .populate({path: 'defects.defect', model: 'defects'})
+      .populate({path: 'defects.partNumber', model: 'parts'})
+      .populate({path: 'defects.molde', model: 'moldes'})
+      .populate({path: 'defects.program', model: 'programs'})
       .sort({ reportDate: -1 });
       
     },
@@ -185,6 +189,10 @@ export const resolvers = {
         .populate({path: 'production.partNumber', model: 'parts'})
         .populate({path: 'production.molde', model: 'moldes'})
         .populate({path: 'downtimeDetail.issueId', model: 'issues'})
+        .populate({path: 'defects.defect', model: 'defects'})
+        .populate({path: 'defects.partNumber', model: 'parts'})
+        .populate({path: 'defects.molde', model: 'moldes'})
+        .populate({path: 'defects.program', model: 'programs'})
       );  
     },
     async updateInjectionReport(_,{ _id, input }){
@@ -193,7 +201,11 @@ export const resolvers = {
         .populate({path: 'program', model: 'programs'})
         .populate({path: 'production.partNumber', model: 'parts'})
         .populate({path: 'production.molde', model: 'moldes'})
-        .populate({path: 'downtimeDetail.issueId', model: 'issues'});
+        .populate({path: 'downtimeDetail.issueId', model: 'issues'})
+        .populate({path: 'defects.defect', model: 'defects'})
+        .populate({path: 'defects.partNumber', model: 'parts'})
+        .populate({path: 'defects.molde', model: 'moldes'})
+        .populate({path: 'defects.program', model: 'programs'})
     }
   }
 }

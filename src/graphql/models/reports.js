@@ -73,6 +73,27 @@ const injectionReportSchema = new Schema({
     mins: {
       type: Number
     }
+  }],
+  defects: [{
+    defect: {
+      type: Schema.Types.ObjectId,
+      ref: 'defects'
+    },
+    defectPcs: {
+      type: Number
+    },
+    molde: {
+      type: Schema.Types.ObjectId,
+      ref: 'moldes'
+    },
+    partNumber: {
+      type: Schema.Types.ObjectId,
+      ref: 'parts'
+    },
+    program: {
+      type: Schema.Types.ObjectId,
+      ref: 'programs'
+    }
   }]
 });
 

@@ -63,7 +63,18 @@ const typeDefs = `
         downtime: Int
         efficiency: Decimal
         production: [InjectionProduction]
+        defects: [DefectProduction]
         downtimeDetail: [DowntimeDetail]
+    }
+
+    type DefectProduction{
+        _id: ID!
+        defect: Defect
+        defectPcs: Int
+        molde: Molde
+        partNumber: PartNumber
+        program: Program
+
     }
 
     type InjectionProduction {
@@ -185,6 +196,7 @@ const typeDefs = `
         efficiency: Decimal
         production: [InjectionProductionInput]
         downtimeDetail: [DowntimeDetailInput]
+        defects: [DefectsInput]
         
     }
 
@@ -198,6 +210,14 @@ const typeDefs = `
         time: Int
         oee: Decimal
         capacity: Int
+    }
+
+    input DefectsInput{
+        defect: ID
+        defectPcs: Int
+        molde: ID
+        partNumber: ID
+        program: ID
     }
 
     input DowntimeDetailInput{
