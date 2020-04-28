@@ -59,7 +59,7 @@ const typeDefs = `
         totalOK: Int
         totalNG: Int
         totalCapacity: Int
-        totalTime: Int
+        totalTime: Decimal
         downtime: Int
         efficiency: Decimal
         production: [InjectionProduction]
@@ -85,7 +85,7 @@ const typeDefs = `
         real: Int
         ng: Int
         ok: Int
-        time: Int
+        time: Decimal
         oee: Decimal
         capacity: Int
     }

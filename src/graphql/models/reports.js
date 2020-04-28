@@ -25,7 +25,7 @@ const injectionReportSchema = new Schema({
     type: Number
   },
   totalTime: {
-    type: Number
+    type: Schema.Types.Decimal128
   },
   downtime: {
     type: Number
@@ -56,7 +56,7 @@ const injectionReportSchema = new Schema({
       type: Number
     },
     time: {
-      type: Number
+      type: Schema.Types.Decimal128
     },
     oee: {
       type: Schema.Types.Decimal128
