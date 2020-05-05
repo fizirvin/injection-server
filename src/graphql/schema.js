@@ -110,11 +110,13 @@ const typeDefs = `
     type Issue {
         _id: ID!
         issueName: String!
+        issueCode: String
     }
 
     type Defect {
         _id: ID!
         defectName: String!
+        defectCode: String
     }
 
     type Program {
@@ -168,10 +170,12 @@ const typeDefs = `
 
     input NewIssue {
         issueName: String!
+        issueCode: String!
     }
 
     input NewDefect {
         defectName: String!
+        defectCode: String!
     }
 
     input NewProgram {

@@ -4,6 +4,10 @@ const defectSchema = new Schema({
   defectName: {
     type: String,
     required: true
+  },
+  defectCode: {
+    type: String,
+    required: true
   }
 });
 
