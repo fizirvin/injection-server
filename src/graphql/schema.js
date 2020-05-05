@@ -9,6 +9,7 @@ const typeDefs = `
     type Query {
         machines: [Machine] 
         moldes: [Molde]
+        materials: [Material]
         parts: [PartNumber]
         issues: [Issue]
         defects: [Defect]
@@ -42,6 +43,14 @@ const typeDefs = `
         machineNumber: String!
         machineSerial: String!
         reports: [InjectionReport]
+    }
+
+    type Material{
+        _id: ID!
+        number: String!
+        description: String!
+        type: String!
+        unit: String!
     }
 
     type Production {
@@ -139,6 +148,9 @@ const typeDefs = `
         newMolde(_id: ID, input: NewMolde): Molde
         updateMolde(_id: ID, input: NewMolde): Molde
 
+        newMaterial(_id: ID, input: NewMaterial): Material
+        updateMaterial(_id: ID, input: NewMaterial): Material
+
         newPartNumber(_id: ID, input: NewPartNumber): PartNumber
         updatePartNumber(_id: ID, input: NewPartNumber): PartNumber
 
@@ -171,6 +183,13 @@ const typeDefs = `
     input NewIssue {
         issueName: String!
         issueCode: String!
+    }
+
+    input NewMaterial {
+        number: String!
+        description: String!
+        type: String!
+        unit: String!
     }
 
     input NewDefect {

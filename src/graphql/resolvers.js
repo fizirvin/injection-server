@@ -1,5 +1,6 @@
 import machines from './models/machines.js'
 import moldes from './models/moldes.js'
+import materials from './models/materials.js'
 import parts from './models/parts.js'
 import issues from './models/issues.js'
 import defects from './models/defects.js'
@@ -38,6 +39,9 @@ export const resolvers = {
     async machines(){
       return await machines.find();
     },
+    async materials(){
+      return await materials.find();
+    },
     async moldes(){
       return await moldes.find();
     },
@@ -48,7 +52,7 @@ export const resolvers = {
       return await issues.find();
     },
     async defects(){
-      return await defects.find();
+      return await defects.find().sort({ defectName: 1 });
     },
     async programs(){
       return await programs.find().populate({path: 'machineNumber', model: 'machines'})
@@ -143,6 +147,14 @@ export const resolvers = {
     },
     async updateIssue(_,{ _id, input }){
       return await issues.findByIdAndUpdate(_id,input, {new: true });
+    },
+    async newMaterial(_, { input }){
+      const newMaterial = new materials(input);
+        await newMaterial.save();   
+        return newMaterial;
+    },
+    async updateMaterial(_,{ _id, input }){
+      return await materials.findByIdAndUpdate(_id,input, {new: true });
     },
     async newDefect(_, { input }){
       const newDefect = new defects(input);
