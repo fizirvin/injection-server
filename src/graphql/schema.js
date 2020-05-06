@@ -74,6 +74,13 @@ const typeDefs = `
         production: [InjectionProduction]
         defects: [DefectProduction]
         downtimeDetail: [DowntimeDetail]
+        resines: [Resine]
+    }
+
+    type Resine{
+        _id: ID!
+        resine: Material
+        purge: Int
     }
 
     type DefectProduction{
@@ -220,6 +227,7 @@ const typeDefs = `
         production: [InjectionProductionInput]
         downtimeDetail: [DowntimeDetailInput]
         defects: [DefectsInput]
+        resines: [ResinesInput]
         
     }
 
@@ -241,6 +249,11 @@ const typeDefs = `
         molde: ID
         partNumber: ID
         program: ID
+    }
+
+    input ResinesInput{
+        resine: ID
+        purge: Int
     }
 
     input DowntimeDetailInput{

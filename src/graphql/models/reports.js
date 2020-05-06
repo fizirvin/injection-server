@@ -94,6 +94,15 @@ const injectionReportSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'programs'
     }
+  }],
+  resines: [{
+    resine: {
+      type: Schema.Types.ObjectId,
+      ref: 'materials'
+    },
+    purge: {
+      type: Number
+    }, 
   }]
 });
 

@@ -205,6 +205,7 @@ export const resolvers = {
         .populate({path: 'defects.partNumber', model: 'parts'})
         .populate({path: 'defects.molde', model: 'moldes'})
         .populate({path: 'defects.program', model: 'programs'})
+        .populate({path: 'resines.resine', model: 'materials'})
       );  
     },
     async updateInjectionReport(_,{ _id, input }){
