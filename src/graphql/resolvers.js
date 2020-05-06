@@ -67,6 +67,7 @@ export const resolvers = {
       .populate({path: 'production.molde', model: 'moldes'})
       .populate({path: 'downtimeDetail.issueId', model: 'issues'})
       .populate({path: 'defects.defect', model: 'defects'})
+      .populate({path: 'resines.resine', model: 'materials'})
       .populate({path: 'defects.partNumber', model: 'parts'})
       .populate({path: 'defects.molde', model: 'moldes'})
       .populate({path: 'defects.program', model: 'programs'})
@@ -219,6 +220,7 @@ export const resolvers = {
         .populate({path: 'defects.partNumber', model: 'parts'})
         .populate({path: 'defects.molde', model: 'moldes'})
         .populate({path: 'defects.program', model: 'programs'})
+        .populate({path: 'resines.resine', model: 'materials'})
     }
   }
 }
