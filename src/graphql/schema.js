@@ -133,6 +133,7 @@ const typeDefs = `
         _id: ID!
         defectName: String!
         defectCode: String
+        isInjection: Boolean!
     }
 
     type Program {
@@ -202,6 +203,7 @@ const typeDefs = `
     input NewDefect {
         defectName: String!
         defectCode: String!
+        isInjection: Boolean!
     }
 
     input NewProgram {

@@ -8,6 +8,10 @@ const defectSchema = new Schema({
   defectCode: {
     type: String,
     required: true
+  },
+  isInjection: {
+    type: Boolean,
+    required: true
   }
 });
 
