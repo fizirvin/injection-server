@@ -11,7 +11,7 @@ const defectSchema = new Schema({
   },
   isInjection: {
     type: Boolean,
-    required: true
+    required: false
   }
 });
 

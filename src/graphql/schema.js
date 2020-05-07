@@ -203,7 +203,7 @@ const typeDefs = `
     input NewDefect {
         defectName: String!
         defectCode: String!
-        isInjection: Boolean!
+        isInjection: Boolean
     }
 
     input NewProgram {
