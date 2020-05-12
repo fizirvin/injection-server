@@ -23,10 +23,14 @@ const typeDefs = `
         report: ID
         date: String
         machine: ID
+        totalCapacity: Int
+        efficiency: Decimal
         part: ID
         molde: ID
         ok: Int
         ng: Int
+        oee: Decimal
+        capacity: Int
     }
 
     type FlatDownTime {
