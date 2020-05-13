@@ -25,6 +25,7 @@ const typeDefs = `
         machine: ID
         part: ID
         molde: ID
+        real: Int
         ok: Int
         ng: Int
         time: Decimal

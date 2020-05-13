@@ -107,7 +107,7 @@ export const resolvers = {
           const id = item._id
           const machine = item.machine
           const production = item.production.map( prod =>{
-            return { report: id, date: date, machine: machine, part: prod.partNumber, molde: prod.molde, ok: prod.ok, ng: prod.ng, time: prod.time, oee: prod.oee, capacity: prod.capacity}
+            return { report: id, date: date, machine: machine, part: prod.partNumber, molde: prod.molde, real: prod.real, ok: prod.ok, ng: prod.ng, time: prod.time, oee: prod.oee, capacity: prod.capacity}
           })
           return production
         })
