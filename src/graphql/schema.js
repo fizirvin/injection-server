@@ -16,6 +16,7 @@ const typeDefs = `
         programs: [Program]
         reports: [InjectionReport]
         reportsByDate(initial: Date, end: Date): [FlatDownTime]
+        resinesByDate(initial: Date, end: Date): [FlatResine]
         reportsDate(initial: Date, end: Date): [Flat]
     }
 
@@ -40,6 +41,15 @@ const typeDefs = `
         issue: ID
         issueName: String
         mins: Int
+    }
+
+    type FlatResine {
+        report: ID
+        date: String
+        machine: ID
+        resine: ID
+        resineName: String
+        purge: Int
     }
 
     type Machine {

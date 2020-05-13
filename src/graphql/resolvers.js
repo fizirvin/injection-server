@@ -98,6 +98,30 @@ export const resolvers = {
         
         return flatDownTime })
     },
+    async resinesByDate(parent, args){
+      return await reports.find({ reportDate: { $gte: args.initial, $lte: args.end } })
+      .populate({path: 'resines.resine', model: 'materials'})
+      .sort({ reportDate: -1 }).then( report => {
+        const array = [...report]
+        const convert = array.map( item => { 
+          const date = formatDate(item.reportDate);
+          const id = item._id
+          const machine = item.machine
+          const resines = item.resines.map( resine =>{
+            return { 
+              report: id, 
+              date: date, 
+              machine: machine, 
+              resine: resine.resine._id, 
+              resineName: resine.resine.description, 
+              purge: resine.purge}
+          })
+          return resines
+        })
+        let flatResine = [].concat.apply([],convert);
+        
+        return flatResine })
+    },
     async reportsDate(parent, args){
       return await reports.find({ reportDate: { $gte: args.initial, $lte: args.end } })
       .sort({ reportDate: 1 }).then( report => {
