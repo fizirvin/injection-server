@@ -23,12 +23,11 @@ const typeDefs = `
         report: ID
         date: String
         machine: ID
-        totalCapacity: Int
-        efficiency: Decimal
         part: ID
         molde: ID
         ok: Int
         ng: Int
+        time: Decimal
         oee: Decimal
         capacity: Int
     }
