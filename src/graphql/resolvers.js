@@ -107,9 +107,11 @@ export const resolvers = {
           const id = item._id
           const machine = item.machine
           const totalCapacity = item.totalCapacity
+          const totalTime = item.totalTime
+          const downtime = item.downtime
           const efficiency = item.efficiency
           const production = item.production.map( prod =>{
-            return { report: id, date: date, machine: machine, totalCapacity: totalCapacity, efficiency: efficiency, part: prod.partNumber, molde: prod.molde, ok: prod.ok, ng: prod.ng, oee: prod.oee, capacity: prod.capacity}
+            return { report: id, date: date, machine: machine, totalCapacity: totalCapacity, totalTime: totalTime, downtime: downtime, efficiency: efficiency, part: prod.partNumber, molde: prod.molde, ok: prod.ok, ng: prod.ng, time: prod.time, oee: prod.oee, capacity: prod.capacity}
           })
           return production
         })
