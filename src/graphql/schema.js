@@ -23,6 +23,7 @@ const typeDefs = `
     type Flat {
         report: ID
         date: String
+        shift: String
         machine: ID
         part: ID
         molde: ID
@@ -37,6 +38,7 @@ const typeDefs = `
     type FlatDownTime {
         report: ID
         date: String
+        shift: String
         machine: ID
         issue: ID
         issueName: String
@@ -46,6 +48,7 @@ const typeDefs = `
     type FlatResine {
         report: ID
         date: String
+        shift: String
         machine: ID
         resine: ID
         resineName: String

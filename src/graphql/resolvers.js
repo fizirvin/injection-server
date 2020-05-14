@@ -82,11 +82,13 @@ export const resolvers = {
         const convert = array.map( item => { 
           const date = formatDate(item.reportDate);
           const id = item._id
+          const shift = item._id
           const machine = item.machine
           const downtime = item.downtimeDetail.map( downtime =>{
             return { 
               report: id, 
-              date: date, 
+              date: date,
+              shift: shift, 
               machine: machine, 
               issue: downtime.issueId._id, 
               issueName: downtime.issueId.issueName, 
@@ -106,11 +108,13 @@ export const resolvers = {
         const convert = array.map( item => { 
           const date = formatDate(item.reportDate);
           const id = item._id
+          const shift = item._id
           const machine = item.machine
           const resines = item.resines.map( resine =>{
             return { 
               report: id, 
-              date: date, 
+              date: date,
+              shift: shift, 
               machine: machine, 
               resine: resine.resine._id, 
               resineName: resine.resine.description, 
@@ -129,9 +133,10 @@ export const resolvers = {
         const convert = array.map( item => { 
           const date = formatDate(item.reportDate);
           const id = item._id
+          const shift = item._id
           const machine = item.machine
           const production = item.production.map( prod =>{
-            return { report: id, date: date, machine: machine, part: prod.partNumber, molde: prod.molde, real: prod.real, ok: prod.ok, ng: prod.ng, time: prod.time, oee: prod.oee, capacity: prod.capacity}
+            return { report: id, date: date, shift: shift, machine: machine, part: prod.partNumber, molde: prod.molde, real: prod.real, ok: prod.ok, ng: prod.ng, time: prod.time, oee: prod.oee, capacity: prod.capacity}
           })
           return production
         })
