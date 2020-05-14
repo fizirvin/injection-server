@@ -82,7 +82,7 @@ export const resolvers = {
         const convert = array.map( item => { 
           const date = formatDate(item.reportDate);
           const id = item._id
-          const shift = item._id
+          const shift = item.shift
           const machine = item.machine
           const downtime = item.downtimeDetail.map( downtime =>{
             return { 
@@ -108,7 +108,7 @@ export const resolvers = {
         const convert = array.map( item => { 
           const date = formatDate(item.reportDate);
           const id = item._id
-          const shift = item._id
+          const shift = item.shift
           const machine = item.machine
           const resines = item.resines.map( resine =>{
             return { 
@@ -133,7 +133,7 @@ export const resolvers = {
         const convert = array.map( item => { 
           const date = formatDate(item.reportDate);
           const id = item._id
-          const shift = item._id
+          const shift = item.shift
           const machine = item.machine
           const production = item.production.map( prod =>{
             return { report: id, date: date, shift: shift, machine: machine, part: prod.partNumber, molde: prod.molde, real: prod.real, ok: prod.ok, ng: prod.ng, time: prod.time, oee: prod.oee, capacity: prod.capacity}
