@@ -59,6 +59,8 @@ const typeDefs = `
         _id: ID!
         machineNumber: String!
         machineSerial: String!
+        closingForce: Int!
+        spindleDiameter: Int!
         reports: [InjectionReport]
     }
 
@@ -195,6 +197,8 @@ const typeDefs = `
     input NewMachine {
         machineNumber: String!
         machineSerial: String!
+        closingForce: Int!
+        spindleDiameter: Int!
     }
 
     input NewMolde {
