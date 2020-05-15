@@ -138,6 +138,7 @@ const typeDefs = `
         _id: ID!
         moldeNumber: String!
         moldeSerial: String!
+        cavities: Int!
     }
 
     type Issue {
@@ -199,6 +200,7 @@ const typeDefs = `
     input NewMolde {
         moldeNumber: String!
         moldeSerial: String!
+        cavities: Int!
     }
 
     input NewPartNumber {

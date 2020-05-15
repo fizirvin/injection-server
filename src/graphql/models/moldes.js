@@ -8,6 +8,10 @@ const moldeSchema = new Schema({
   moldeSerial: {
     type: String,
     required: true
+  },
+  cavities: {
+    type: Number,
+    required: true
   }
 });
 
