@@ -11,11 +11,11 @@ const machineSchema = new Schema({
   },
   closingForce:{
     type: Number,
-    required: true
+    required: false
   },
   spindleDiameter:{
     type: Number,
-    required: true
+    required: false
   },
   reports:[{
     type: Schema.Types.ObjectId,

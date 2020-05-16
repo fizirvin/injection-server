@@ -11,7 +11,7 @@ const moldeSchema = new Schema({
   },
   cavities: {
     type: Number,
-    required: true
+    required: false
   }
 });
 

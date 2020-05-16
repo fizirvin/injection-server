@@ -59,8 +59,8 @@ const typeDefs = `
         _id: ID!
         machineNumber: String!
         machineSerial: String!
-        closingForce: Int!
-        spindleDiameter: Int!
+        closingForce: Int
+        spindleDiameter: Int
         reports: [InjectionReport]
     }
 
@@ -145,7 +145,7 @@ const typeDefs = `
         _id: ID!
         moldeNumber: String!
         moldeSerial: String!
-        cavities: Int!
+        cavities: Int
     }
 
     type Issue {
