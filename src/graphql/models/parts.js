@@ -3,7 +3,7 @@ import {Schema, model } from 'mongoose';
 const partSchema = new Schema({
   partNumber: {
     type: String,
-    required: true
+    required: false
   },
   partName: {
     type: String,
@@ -11,7 +11,7 @@ const partSchema = new Schema({
   },
   family: {
     type: String,
-    required: true
+    required: false
   }
 });
 

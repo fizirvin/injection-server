@@ -136,7 +136,7 @@ export const resolvers = {
           const shift = item.shift
           const machine = item.machine
           const production = item.production.map( prod =>{
-            return { report: id, date: date, shift: shift, machine: machine, part: prod.partNumber, molde: prod.molde, real: prod.real, ok: prod.ok, ng: prod.ng, time: prod.time, oee: prod.oee, capacity: prod.capacity}
+            return { report: id, date: date, shift: shift, machine: machine, part: prod.partName, molde: prod.molde, real: prod.real, ok: prod.ok, ng: prod.ng, time: prod.time, oee: prod.oee, capacity: prod.capacity}
           })
           return production
         })

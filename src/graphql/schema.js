@@ -136,9 +136,9 @@ const typeDefs = `
 
     type PartNumber {
         _id: ID!
-        partNumber: String!
-        partName: String!
-        family: String!
+        partNumber: String
+        partName: String
+        family: String
     }
 
     type Molde {
