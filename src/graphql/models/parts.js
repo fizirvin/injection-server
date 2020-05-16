@@ -4,6 +4,14 @@ const partSchema = new Schema({
   partNumber: {
     type: String,
     required: true
+  },
+  partName: {
+    type: String,
+    required: true
+  },
+  family: {
+    type: String,
+    required: true
   }
 });
 

@@ -5,7 +5,19 @@ const materialSchema = new Schema({
     type: String,
     required: true
   },
+  manufacturer: {
+    type: String,
+    required: true
+  },
   description: {
+    type: String,
+    required: true
+  },
+  acronym: {
+    type: String,
+    required: true
+  },
+  identification: {
     type: String,
     required: true
   },

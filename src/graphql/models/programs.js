@@ -16,6 +16,10 @@ const programSchema = new Schema({
     required: true,
     ref: 'parts'
   },
+  cycleTime: {
+    type: Schema.Types.Decimal128,
+    required: true
+  },
   cycles: {
     type: Number,
     required: true

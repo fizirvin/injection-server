@@ -67,7 +67,10 @@ const typeDefs = `
     type Material{
         _id: ID!
         number: String!
+        manufacturer: String!
         description: String!
+        acronym: String!
+        identification: String!
         type: String!
         unit: String!
     }
@@ -134,6 +137,8 @@ const typeDefs = `
     type PartNumber {
         _id: ID!
         partNumber: String!
+        partName: String!
+        family: String!
     }
 
     type Molde {
@@ -161,6 +166,7 @@ const typeDefs = `
         machineNumber: Machine!
         moldeNumber: Molde!
         partNumber: PartNumber!
+        cycleTime: Decimal!
         cycles: Int!
         capacity: Int!
     }
@@ -209,6 +215,8 @@ const typeDefs = `
 
     input NewPartNumber {
         partNumber: String!
+        partName: String!
+        family: String!
     }
 
     input NewIssue {
@@ -218,7 +226,10 @@ const typeDefs = `
 
     input NewMaterial {
         number: String!
+        manufacturer: String!
         description: String!
+        acronym: String!
+        identification: String!
         type: String!
         unit: String!
     }
@@ -233,6 +244,7 @@ const typeDefs = `
         machineNumber: ID
         moldeNumber: ID
         partNumber: ID
+        cycleTime: Decimal!
         cycles: Int!
         capacity: Int!
     }
