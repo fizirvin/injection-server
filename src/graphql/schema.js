@@ -166,7 +166,7 @@ const typeDefs = `
         machineNumber: Machine!
         moldeNumber: Molde!
         partNumber: PartNumber!
-        cycleTime: Decimal!
+        cycleTime: Decimal
         cycles: Int!
         capacity: Int!
     }

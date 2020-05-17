@@ -22,7 +22,7 @@ const programSchema = new Schema({
   },
   cycles: {
     type: Number,
-    required: true
+    
   },
   capacity: {
     type: Number,
