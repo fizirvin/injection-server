@@ -66,13 +66,13 @@ const typeDefs = `
 
     type Material{
         _id: ID!
-        number: String!
-        manufacturer: String!
-        description: String!
-        acronym: String!
-        identification: String!
-        type: String!
-        unit: String!
+        number: String
+        manufacturer: String
+        description: String
+        acronym: String
+        identification: String
+        type: String
+        unit: String
     }
 
     type Production {

@@ -3,31 +3,31 @@ import {Schema, model } from 'mongoose';
 const materialSchema = new Schema({
   number: {
     type: String,
-    required: true
+    required: false
   },
   manufacturer: {
     type: String,
-    required: true
+    required: false
   },
   description: {
     type: String,
-    required: true
+    required: false
   },
   acronym: {
     type: String,
-    required: true
+    required: false
   },
   identification: {
     type: String,
-    required: true
+    required: false
   },
   type: {
     type: String,
-    required: true
+    required: false
   },
   unit: {
     type: String,
-    required: true
+    required: false
   }
 });
 
