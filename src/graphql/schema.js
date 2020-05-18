@@ -15,9 +15,9 @@ const typeDefs = `
         defects: [Defect]
         programs: [Program]
         reports: [InjectionReport]
-        reportsByDate(initial: Date, end: Date): [FlatDownTime]
+        downtimeByDate(initial: Date, end: Date): [FlatDownTime]
         resinesByDate(initial: Date, end: Date): [FlatResine]
-        reportsDate(initial: Date, end: Date): [Flat]
+        productionByDate(initial: Date, end: Date): [Flat]
     }
 
     type Flat {
@@ -28,11 +28,15 @@ const typeDefs = `
         part: ID
         molde: ID
         real: Int
-        ok: Int
         ng: Int
-        time: Decimal
+        ok: Int
+        plan: Int
+        wtime: Decimal
+        dtime: Decimal
+        availability: Decimal
+        performance: Decimal
+        quality: Decimal
         oee: Decimal
-        capacity: Int
     }
 
     type FlatDownTime {
@@ -86,13 +90,16 @@ const typeDefs = `
         reportDate: Date
         shift: String
         machine: Machine
-        totalReal: Int
-        totalOK: Int
-        totalNG: Int
-        totalCapacity: Int
-        totalTime: Decimal
-        downtime: Int
-        efficiency: Decimal
+        TReal: Int
+        TNG: Int
+        TOK: Int
+        TPlan: Int
+        TWTime: Decimal
+        TDTime: Decimal
+        TAvailability: Decimal
+        TPerformance: Decimal
+        TQuality: Decimal
+        TOEE: Decimal
         production: [InjectionProduction]
         defects: [DefectProduction]
         downtimeDetail: [DowntimeDetail]
@@ -112,7 +119,6 @@ const typeDefs = `
         molde: Molde
         partNumber: PartNumber
         program: Program
-
     }
 
     type InjectionProduction {
@@ -123,9 +129,13 @@ const typeDefs = `
         real: Int
         ng: Int
         ok: Int
-        time: Decimal
+        plan: Int
+        wtime: Decimal
+        dtime: Decimal
+        availability: Decimal
+        performance: Decimal
+        quality: Decimal
         oee: Decimal
-        capacity: Int
     }
 
     type DowntimeDetail {
@@ -250,22 +260,23 @@ const typeDefs = `
     }
 
     input NewInjectionReport {
-        
         reportDate: Date
         shift: String
         machine: ID
-        totalReal: Int
-        totalOK: Int
-        totalNG: Int
-        totalCapacity: Int
-        totalTime: Int
-        downtime: Int
-        efficiency: Decimal
+        TReal: Int
+        TNG: Int
+        TOK: Int
+        TPlan: Int
+        TWTime: Decimal
+        TDTime: Decimal
+        TAvailability: Decimal
+        TPerformance: Decimal
+        TQuality: Decimal
+        TOEE: Decimal
         production: [InjectionProductionInput]
         downtimeDetail: [DowntimeDetailInput]
         defects: [DefectsInput]
         resines: [ResinesInput]
-        
     }
 
     input InjectionProductionInput {
@@ -275,9 +286,13 @@ const typeDefs = `
         real: Int
         ng: Int
         ok: Int
-        time: Int
+        plan: Int
+        wtime: Decimal
+        dtime: Decimal
+        availability: Decimal
+        performance: Decimal
+        quality: Decimal
         oee: Decimal
-        capacity: Int
     }
 
     input DefectsInput{

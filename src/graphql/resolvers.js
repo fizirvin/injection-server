@@ -62,19 +62,18 @@ export const resolvers = {
     async reports(){
       return await reports.find()
       .populate({path: 'machine', model: 'machines'})
-      .populate({path: 'program', model: 'programs'})
+      .populate({path: 'production.program', model: 'programs'})
       .populate({path: 'production.partNumber', model: 'parts'})
       .populate({path: 'production.molde', model: 'moldes'})
-      .populate({path: 'downtimeDetail.issueId', model: 'issues'})
       .populate({path: 'defects.defect', model: 'defects'})
-      .populate({path: 'resines.resine', model: 'materials'})
-      .populate({path: 'defects.partNumber', model: 'parts'})
       .populate({path: 'defects.molde', model: 'moldes'})
+      .populate({path: 'defects.partNumber', model: 'parts'})
       .populate({path: 'defects.program', model: 'programs'})
+      .populate({path: 'downtimeDetail.issueId', model: 'issues'})
+      .populate({path: 'resines.resine', model: 'materials'})
       .sort({ reportDate: -1 });
-      
     },
-    async reportsByDate(parent, args){
+    async downtimeByDate(parent, args){
       return await reports.find({ reportDate: { $gte: args.initial, $lte: args.end } })
       .populate({path: 'downtimeDetail.issueId', model: 'issues'})
       .sort({ reportDate: -1 }).then( report => {
@@ -126,7 +125,7 @@ export const resolvers = {
         
         return flatResine })
     },
-    async reportsDate(parent, args){
+    async productionByDate(parent, args){
       return await reports.find({ reportDate: { $gte: args.initial, $lte: args.end } })
       .sort({ reportDate: 1 }).then( report => {
         const array = [...report]
@@ -136,13 +135,29 @@ export const resolvers = {
           const shift = item.shift
           const machine = item.machine
           const production = item.production.map( prod =>{
-            return { report: id, date: date, shift: shift, machine: machine, part: prod.partName, molde: prod.molde, real: prod.real, ok: prod.ok, ng: prod.ng, time: prod.time, oee: prod.oee, capacity: prod.capacity}
+            return { 
+              report: id, 
+              date: date, 
+              shift: shift, 
+              machine: machine, 
+              part: prod.partName, 
+              molde: prod.molde, 
+              real: prod.real,
+              ng: prod.ng, 
+              ok: prod.ok,
+              plan: prod.plan,   
+              wtime: prod.wtime,
+              dtime: prod.dtime, 
+              availability: prod.availability,
+              performance: prod.performance, 
+              quality: prod.quality,  
+              oee: prod.oee }
           })
-          return production
+            return production
         })
         let flat = [].concat.apply([],convert);
-        
-        return flat })
+        return flat 
+      })
     }
   },
   Mutation: {
@@ -227,7 +242,7 @@ export const resolvers = {
       then((newReport) => 
         reports.findOne({_id: newReport._id})
         .populate({path: 'machine', model: 'machines'})
-        .populate({path: 'program', model: 'programs'})
+        .populate({path: 'production.program', model: 'programs'})
         .populate({path: 'production.partNumber', model: 'parts'})
         .populate({path: 'production.molde', model: 'moldes'})
         .populate({path: 'downtimeDetail.issueId', model: 'issues'})
@@ -244,11 +259,11 @@ export const resolvers = {
         .populate({path: 'program', model: 'programs'})
         .populate({path: 'production.partNumber', model: 'parts'})
         .populate({path: 'production.molde', model: 'moldes'})
-        .populate({path: 'downtimeDetail.issueId', model: 'issues'})
         .populate({path: 'defects.defect', model: 'defects'})
         .populate({path: 'defects.partNumber', model: 'parts'})
         .populate({path: 'defects.molde', model: 'moldes'})
         .populate({path: 'defects.program', model: 'programs'})
+        .populate({path: 'downtimeDetail.issueId', model: 'issues'})
         .populate({path: 'resines.resine', model: 'materials'})
     }
   }

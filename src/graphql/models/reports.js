@@ -12,25 +12,34 @@ const injectionReportSchema = new Schema({
     required: true,
     ref: 'machines'
   },
-  totalReal: {
+  TReal: {
     type: Number
   },
-  totalOK: {
+  TNG: {
     type: Number
   },
-  totalNG: {
+  TOK: {
     type: Number
   },
-  totalCapacity: {
+  TPlan: {
     type: Number
   },
-  totalTime: {
+  TWTime: {
     type: Schema.Types.Decimal128
   },
-  downtime: {
-    type: Number
+  TDTime: {
+    type: Schema.Types.Decimal128
   },
-  efficiency: {
+  TAvailability: {
+    type: Schema.Types.Decimal128
+  },
+  TPerformance: {
+    type: Schema.Types.Decimal128
+  },
+  TQuality: {
+    type: Schema.Types.Decimal128
+  },
+  TOEE: {
     type: Schema.Types.Decimal128
   },
   production: [{
@@ -55,14 +64,26 @@ const injectionReportSchema = new Schema({
     ok: {
       type: Number
     },
-    time: {
+    plan: {
+      type: Number
+    },
+    wtime: {
+      type: Schema.Types.Decimal128
+    },
+    dtime: {
+      type: Schema.Types.Decimal128
+    },
+    availability: {
+      type: Schema.Types.Decimal128
+    },
+    performance: {
+      type: Schema.Types.Decimal128
+    },
+    quality: {
       type: Schema.Types.Decimal128
     },
     oee: {
       type: Schema.Types.Decimal128
-    },
-    capacity: {
-      type: Number
     }
   }],
   downtimeDetail: [{
