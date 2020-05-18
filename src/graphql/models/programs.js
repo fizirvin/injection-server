@@ -18,10 +18,11 @@ const programSchema = new Schema({
   },
   cycleTime: {
     type: Schema.Types.Decimal128,
-    required: true
+    required: false
   },
   cycles: {
     type: Number,
+    required: false
     
   },
   capacity: {
