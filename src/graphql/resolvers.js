@@ -140,7 +140,7 @@ export const resolvers = {
               date: date, 
               shift: shift, 
               machine: machine, 
-              part: prod.partName, 
+              part: prod.partNumber, 
               molde: prod.molde, 
               real: prod.real,
               ng: prod.ng, 
