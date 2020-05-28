@@ -90,7 +90,8 @@ export const resolvers = {
               shift: shift, 
               machine: machine, 
               issue: downtime.issueId._id, 
-              issueName: downtime.issueId.issueName, 
+              issueName: downtime.issueId.issueName,
+              issueCode: downtime.issueId.issueCode,   
               mins: downtime.mins}
           })
           return downtime

@@ -46,6 +46,7 @@ const typeDefs = `
         machine: ID
         issue: ID
         issueName: String
+        issueCode: String
         mins: Int
     }
 
