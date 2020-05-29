@@ -118,7 +118,10 @@ export const resolvers = {
               machine: machine, 
               resine: resine.resine._id, 
               resineName: resine.resine.description, 
-              purge: resine.purge}
+              purge: resine.purge,
+              acronym: resine.resine.acronym,
+              color: resine.resine.color
+            }
           })
           return resines
         })

@@ -58,6 +58,8 @@ const typeDefs = `
         resine: ID
         resineName: String
         purge: Int
+        acronym: String
+        color: String
     }
 
     type Machine {
@@ -74,6 +76,7 @@ const typeDefs = `
         number: String
         manufacturer: String
         description: String
+        color: String
         acronym: String
         identification: String
         type: String
@@ -239,6 +242,7 @@ const typeDefs = `
         number: String!
         manufacturer: String!
         description: String!
+        color: String!
         acronym: String!
         identification: String!
         type: String!

@@ -13,6 +13,10 @@ const materialSchema = new Schema({
     type: String,
     required: false
   },
+  color: {
+    type: String,
+    required: false
+  },
   acronym: {
     type: String,
     required: false
