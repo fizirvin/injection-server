@@ -100,6 +100,40 @@ export const resolvers = {
         
         return flatDownTime })
     },
+    async defectsByDate(parent, args){
+      return await reports.find({ reportDate: { $gte: args.initial, $lte: args.end } })
+      .populate({path: 'defects.defect', model: 'defects'})
+      .populate({path: 'defects.molde', model: 'moldes'})
+      .populate({path: 'defects.partNumber', model: 'parts'})
+      .sort({ reportDate: -1 }).then( report => {
+        const array = [...report]
+        const convert = array.map( item => { 
+          const date = formatDate(item.reportDate);
+          const id = item._id
+          const shift = item.shift
+          const machine = item.machine
+          const defect = item.defects.map( defect =>{
+            return { 
+              report: id, 
+              date: date,
+              shift: shift, 
+              machine: machine, 
+              defect: defect.defect._id,
+              defectCode: defect.defect.defectCode,
+              defectName: defect.defect.defectName,
+              partNumber: defect.partNumber._id,
+              partName: defect.partNumber.partName,
+              molde: defect.molde._id,
+              moldeNumber: defect.molde.moldeNumber,
+              defectPcs: defect.defectPcs
+            }
+          })
+          return defect
+        })
+        let flatDefect = [].concat.apply([],convert);
+        
+        return flatDefect })
+    },
     async resinesByDate(parent, args){
       return await reports.find({ reportDate: { $gte: args.initial, $lte: args.end } })
       .populate({path: 'resines.resine', model: 'materials'})

@@ -16,6 +16,7 @@ const typeDefs = `
         programs: [Program]
         reports: [InjectionReport]
         downtimeByDate(initial: Date, end: Date): [FlatDownTime]
+        defectsByDate(initial: Date, end: Date): [FlatDefect]
         resinesByDate(initial: Date, end: Date): [FlatResine]
         productionByDate(initial: Date, end: Date): [Flat]
     }
@@ -48,6 +49,21 @@ const typeDefs = `
         issueName: String
         issueCode: String
         mins: Int
+    }
+
+    type FlatDefect {
+        report: ID
+        date: String
+        shift: String
+        machine: ID
+        defect: ID
+        defectCode: String
+        defectName: String
+        partNumber: ID
+        partName: String
+        molde: ID
+        moldeNumber: String
+        defectPcs: Int
     }
 
     type FlatResine {
