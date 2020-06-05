@@ -176,6 +176,7 @@ const typeDefs = `
         moldeNumber: String!
         moldeSerial: String!
         cavities: Int
+        lifecycles: Int
     }
 
     type Issue {
@@ -241,6 +242,7 @@ const typeDefs = `
         moldeNumber: String!
         moldeSerial: String!
         cavities: Int!
+        lifecycles: Int!
     }
 
     input NewPartNumber {
