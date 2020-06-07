@@ -7,6 +7,8 @@ const typeDefs = `
     scalar Date
 
     type Query {
+        users: [User]
+        user: User
         machines: [Machine] 
         moldes: [Molde]
         materials: [Material]
@@ -19,6 +21,7 @@ const typeDefs = `
         defectsByDate(initial: Date, end: Date): [FlatDefect]
         resinesByDate(initial: Date, end: Date): [FlatResine]
         productionByDate(initial: Date, end: Date): [Flat]
+        login(name: String!, password: String!): AuthData!
     }
 
     type Flat {
@@ -85,6 +88,22 @@ const typeDefs = `
         closingForce: Int
         spindleDiameter: Int
         reports: [InjectionReport]
+    }
+
+    type User {
+        _id: ID!
+        name: String!
+        password: String!
+        level: String!
+        registered: Boolean!
+        active: Boolean!
+        createdAt: Date!
+        updatedAt: Date!
+    }
+
+    type AuthData {
+        token: String!
+        userId: String!
     }
 
     type Material{
@@ -228,7 +247,19 @@ const typeDefs = `
         newProgram(_id: ID, input: NewProgram): Program
         updateProgram(_id: ID, input: NewProgram): Program
 
-        
+        newUser(_id: ID, input: NewUser): User
+        updateUser(_id: ID, input: NewUser): User
+
+    }
+
+    input NewUser {
+        name: String!
+        password: String!
+        level: String!
+        registered: Boolean!
+        active: Boolean!
+        createdAt: Date!
+        updatedAt: Date!
     }
 
     input NewMachine {
