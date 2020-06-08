@@ -7,7 +7,7 @@ const typeDefs = `
     scalar Date
 
     type Query {
-        users: [User]
+        users: [UserFormatDate]
         machines: [Machine] 
         moldes: [Molde]
         materials: [Material]
@@ -96,6 +96,18 @@ const typeDefs = `
         active: Boolean!
         createdAt: Date!
         updatedAt: Date!
+    }
+
+    type UserFormatDate {
+        _id: ID!
+        name: String!
+        password: String!
+        level: String!
+        active: Boolean!
+        fullCat: String!
+        fullUat: String!
+        shortCat: String!
+        shortUat: String!
     }
 
     type AuthData {

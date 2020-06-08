@@ -9,6 +9,8 @@ import defects from './models/defects.js'
 import programs from './models/programs.js'
 import reports from './models/reports.js'
 import User from './models/users.js'
+import fullDate from '../functions/fullDate'
+import shortDate from '../functions/shortDate'
 
 function formatDate(format){
   let formatDate
@@ -39,7 +41,15 @@ function formatDate(format){
 export const resolvers = {
   Query: {
     async users(){
-      return await User.find();
+      const users = await User.find();
+      const userFormat= users.map( item =>{
+        const fullCat = fullDate(item.createdAt)
+        const fullUat = fullDate(item.updatedAt)
+        const shortCat = shortDate(item.createdAt)
+        const shortUat = shortDate(item.updatedAt)
+        return {...item._doc, fullCat, fullUat, shortCat, shortUat } 
+      })
+      return userFormat;
     },
     async machines(){
       return await machines.find();
