@@ -8,7 +8,6 @@ const typeDefs = `
 
     type Query {
         users: [User]
-        user: User
         machines: [Machine] 
         moldes: [Molde]
         materials: [Material]
@@ -21,7 +20,6 @@ const typeDefs = `
         defectsByDate(initial: Date, end: Date): [FlatDefect]
         resinesByDate(initial: Date, end: Date): [FlatResine]
         productionByDate(initial: Date, end: Date): [Flat]
-        login(name: String!, password: String!): AuthData!
     }
 
     type Flat {
@@ -95,7 +93,6 @@ const typeDefs = `
         name: String!
         password: String!
         level: String!
-        registered: Boolean!
         active: Boolean!
         createdAt: Date!
         updatedAt: Date!
@@ -248,18 +245,19 @@ const typeDefs = `
         updateProgram(_id: ID, input: NewProgram): Program
 
         newUser(_id: ID, input: NewUser): User
-        updateUser(_id: ID, input: NewUser): User
-
+        updateUser(_id: ID, input: UpdateUser): User
     }
 
     input NewUser {
         name: String!
-        password: String!
         level: String!
-        registered: Boolean!
+        password: String!
+    }
+
+    input UpdateUser {
+        password: String!
         active: Boolean!
-        createdAt: Date!
-        updatedAt: Date!
+        updatedAt: Date
     }
 
     input NewMachine {

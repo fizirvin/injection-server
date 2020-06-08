@@ -13,10 +13,6 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  registered: {
-    type: Boolean,
-    required: true
-  },
   active: {
     type: Boolean,
     required: true

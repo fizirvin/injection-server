@@ -1,6 +1,5 @@
 import bcrypt from 'bcryptjs';
 import validator from 'validator';
-import jwt from 'jsonwebtoken';
 import machines from './models/machines.js'
 import moldes from './models/moldes.js'
 import materials from './models/materials.js'
@@ -9,7 +8,7 @@ import issues from './models/issues.js'
 import defects from './models/defects.js'
 import programs from './models/programs.js'
 import reports from './models/reports.js'
-import User from "../models/users";
+import User from './models/users.js'
 
 function formatDate(format){
   let formatDate
@@ -39,39 +38,8 @@ function formatDate(format){
 
 export const resolvers = {
   Query: {
-    async user(args, req) {
-      if (!req.isAuth) {
-        const error = new Error('Not authenticated!');
-        error.code = 401;
-        throw error;
-      }
-      const user = await User.findById(req.userId);
-      if (!user) {
-        const error = new Error('No user found!');
-        error.code = 404;
-        throw error;
-      }
-      return { ...user._doc, _id: user._id.toString() };
-    },
-    async login(_,{ name, password }) {
-      const user = await User.findOne({ name: name });
-      if (!user) {
-        const error = new Error('User not found.');
-        error.code = 401;
-        throw error;
-      }
-      const isEqual = await bcrypt.compare(password, user.password);
-      if (!isEqual) {
-        const error = new Error('Password is incorrect.');
-        error.code = 401;
-        throw error;
-      }
-      const token = jwt.sign(
-        {
-          userId: user._id.toString(),
-        },'somesupersecretsecret',{ expiresIn: '1h' }
-      );
-      return { token: token, userId: user._id.toString() };
+    async users(){
+      return await User.find();
     },
     async machines(){
       return await machines.find();
@@ -342,32 +310,28 @@ export const resolvers = {
         .populate({path: 'resines.resine', model: 'materials'})
     },
     async newUser(_,{  input }) {
-      let errors = [];
-      if (
-        validator.isEmpty(input.password) ||
-        !validator.isLength(input.password, { min: 5 })
-      ) {
-        errors.push({ message: 'Password too short!' });
+      if ( !validator.isLength(input.password, { min: 5 })) {
+        const error = new Error('Password too short!');
+        error.code = 422;
+        throw error;
       }
-      if (errors.length > 0) {
+      if (validator.isEmpty(input.password)) {
         const error = new Error('Invalid input.');
-        error.data = errors;
         error.code = 422;
         throw error;
       }
       const existingUser = await User.findOne({ name: input.name });
           if (existingUser) {
             const error = new Error('User exists already!');
+            error.code = 500;
             throw error;
       }
-      const date = new Date()
+      const date = new Date();
       const user = new User({
-        registered: false,
+        ...input, 
         active: true,
-        registeredAt: date,
+        createdAt: date, 
         updatedAt: date,
-        level: input.level,
-        name: input.name,
         password: await bcrypt.hash(input.password, 12)
       });
       const createdUser = await user.save();
