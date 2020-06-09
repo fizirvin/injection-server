@@ -46,8 +46,7 @@ export const resolvers = {
         const fullCat = fullDate(item.createdAt)
         const fullUat = fullDate(item.updatedAt)
         const shortCat = shortDate(item.createdAt)
-        const shortUat = shortDate(item.updatedAt)
-        return {...item._doc, fullCat, fullUat, shortCat, shortUat } 
+        return {...item._doc, fullCat, fullUat, shortCat } 
       })
       return userFormat;
     },

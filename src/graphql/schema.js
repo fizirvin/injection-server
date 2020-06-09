@@ -107,7 +107,6 @@ const typeDefs = `
         fullCat: String!
         fullUat: String!
         shortCat: String!
-        shortUat: String!
     }
 
     type AuthData {
