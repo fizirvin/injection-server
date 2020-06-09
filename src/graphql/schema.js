@@ -282,7 +282,7 @@ const typeDefs = `
         moldeNumber: String!
         moldeSerial: String!
         cavities: Int!
-        lifecycles: Int!
+        lifecycles: Int
         tcycles: Int
     }
 
