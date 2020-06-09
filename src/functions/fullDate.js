@@ -1,5 +1,8 @@
-import { format } from 'date-fns'
+import { utcToZonedTime, format } from 'date-fns-tz'
 
-const fullDate = (date) => format(date, "iii PPpppp")
+function fullDate(date){
+    const output = format(utcToZonedTime(date, 'America/Mexico_City'), 'iii PPpppp', { timeZone: 'America/Mexico_City' })
+    return output
+}
 
 export default fullDate;

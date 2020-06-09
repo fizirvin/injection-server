@@ -255,7 +255,7 @@ const typeDefs = `
         newProgram(_id: ID, input: NewProgram): Program
         updateProgram(_id: ID, input: NewProgram): Program
 
-        newUser(_id: ID, input: NewUser): User
+        newUser(_id: ID, input: NewUser): UserFormatDate
         updateUser(_id: ID, input: UpdateUser): User
     }
 

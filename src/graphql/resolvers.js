@@ -344,7 +344,12 @@ export const resolvers = {
         password: await bcrypt.hash(input.password, 12)
       });
       const createdUser = await user.save();
-      return { ...createdUser._doc };
+      const { createdAt, updatedAt } = createdUser._doc
+      const fullCat = fullDate(createdAt)
+      const fullUat = fullDate(updatedAt)
+      const shortCat = shortDate(createdAt)
+        
+      return { ...createdUser._doc, fullCat, fullUat, shortCat };
     }
   }
 }
