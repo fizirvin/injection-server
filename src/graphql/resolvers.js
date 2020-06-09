@@ -11,6 +11,7 @@ import reports from './models/reports.js'
 import User from './models/users.js'
 import fullDate from '../functions/fullDate'
 import shortDate from '../functions/shortDate'
+import zonedD from '../functions/zonedD'
 
 function formatDate(format){
   let formatDate
@@ -336,11 +337,12 @@ export const resolvers = {
             throw error;
       }
       const date = new Date();
+      const zonedDate = zonedD(date);
       const user = new User({
         ...input, 
         active: true,
-        createdAt: date, 
-        updatedAt: date,
+        createdAt: zonedDate, 
+        updatedAt: zonedDate,
         password: await bcrypt.hash(input.password, 12)
       });
       const createdUser = await user.save();
@@ -350,6 +352,32 @@ export const resolvers = {
       const shortCat = shortDate(createdAt)
         
       return { ...createdUser._doc, fullCat, fullUat, shortCat };
+    },
+    async updateUser(_,{ _id, input }){
+      if (validator.isEmpty(input.level)) {
+        const error = new Error('Invalid input.');
+        error.code = 422;
+        throw error;
+      }
+      if (validator.isEmpty(input.active)) {
+        const error = new Error('Invalid input.');
+        error.code = 422;
+        throw error;
+      }
+      const date = new Date();
+      const zonedDate = zonedD(date);
+      const object = {
+        level: input.level,
+        active: input.active,
+        updatedAt: zonedDate
+      }
+      const updatedUser = await User.findByIdAndUpdate(_id, object , {new: true })
+      const { createdAt, updatedAt } = updatedUser._doc
+      const fullCat = fullDate(createdAt)
+      const fullUat = fullDate(updatedAt)
+      const shortCat = shortDate(createdAt)
+        
+      return { ...updatedUser._doc, fullCat, fullUat, shortCat };
     }
   }
 }

@@ -101,7 +101,6 @@ const typeDefs = `
     type UserFormatDate {
         _id: ID!
         name: String!
-        password: String!
         level: String!
         active: Boolean!
         fullCat: String!
@@ -256,7 +255,7 @@ const typeDefs = `
         updateProgram(_id: ID, input: NewProgram): Program
 
         newUser(_id: ID, input: NewUser): UserFormatDate
-        updateUser(_id: ID, input: UpdateUser): User
+        updateUser(_id: ID, input: UpdateUser): UserFormatDate
     }
 
     input NewUser {
@@ -266,9 +265,8 @@ const typeDefs = `
     }
 
     input UpdateUser {
-        password: String!
         active: Boolean!
-        updatedAt: Date
+        level: String!
     }
 
     input NewMachine {
