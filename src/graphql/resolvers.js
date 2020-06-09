@@ -353,25 +353,14 @@ export const resolvers = {
         
       return { ...createdUser._doc, fullCat, fullUat, shortCat };
     },
-    async updateUser(_,{ _id, input }){
-      if (validator.isEmpty(input.level)) {
-        const error = new Error('Invalid input.');
-        error.code = 422;
-        throw error;
-      }
-      if (validator.isEmpty(input.active)) {
-        const error = new Error('Invalid input.');
-        error.code = 422;
-        throw error;
-      }
+    async updateUser(_,{ _id, input}){
       const date = new Date();
       const zonedDate = zonedD(date);
-      const object = {
-        level: input.level,
-        active: input.active,
-        updatedAt: zonedDate
+      const object ={
+        ...input,
+        updatedAt: zonedDate,
       }
-      const updatedUser = await User.findByIdAndUpdate(_id, object , {new: true })
+      const updatedUser =  await User.findByIdAndUpdate(_id,object, {new: true });
       const { createdAt, updatedAt } = updatedUser._doc
       const fullCat = fullDate(createdAt)
       const fullUat = fullDate(updatedAt)

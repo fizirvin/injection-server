@@ -254,8 +254,9 @@ const typeDefs = `
         newProgram(_id: ID, input: NewProgram): Program
         updateProgram(_id: ID, input: NewProgram): Program
 
+        updateUser(_id: ID, input: UpdatedUser): UserFormatDate
         newUser(_id: ID, input: NewUser): UserFormatDate
-        updateUser(_id: ID, input: UpdateUser): UserFormatDate
+        
     }
 
     input NewUser {
@@ -264,9 +265,9 @@ const typeDefs = `
         password: String!
     }
 
-    input UpdateUser {
-        active: Boolean!
+    input UpdatedUser {
         level: String!
+        active: Boolean!
     }
 
     input NewMachine {
