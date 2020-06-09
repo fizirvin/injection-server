@@ -16,6 +16,10 @@ const moldeSchema = new Schema({
   lifecycles: {
     type: Number,
     required: false
+  },
+  tcycles: {
+    type: Number,
+    required: false
   }
 });
 

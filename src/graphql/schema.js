@@ -203,6 +203,7 @@ const typeDefs = `
         moldeSerial: String!
         cavities: Int
         lifecycles: Int
+        tcycles: Int
     }
 
     type Issue {
@@ -282,6 +283,7 @@ const typeDefs = `
         moldeSerial: String!
         cavities: Int!
         lifecycles: Int!
+        tcycles: Int
     }
 
     input NewPartNumber {
