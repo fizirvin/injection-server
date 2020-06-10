@@ -20,6 +20,7 @@ const typeDefs = `
         defectsByDate(initial: Date, end: Date): [FlatDefect]
         resinesByDate(initial: Date, end: Date): [FlatResine]
         productionByDate(initial: Date, end: Date): [Flat]
+        login(name: String, password: String): AuthData!
     }
 
     type Flat {

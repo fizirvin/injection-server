@@ -1,5 +1,7 @@
 import bcrypt from 'bcryptjs';
 import validator from 'validator';
+import jwt from 'jsonwebtoken';
+
 import machines from './models/machines.js'
 import moldes from './models/moldes.js'
 import materials from './models/materials.js'
@@ -50,6 +52,27 @@ export const resolvers = {
         return {...item._doc, fullCat, fullUat, shortCat } 
       })
       return userFormat;
+    },
+    async login(_,{ name, password }) {
+      const user = await User.findOne({ name: name });
+      if (!user) {
+        const error = new Error('User not found.');
+        error.code = 401;
+        throw error;
+      }
+      const isEqual = await bcrypt.compare(password, user.password);
+      if (!isEqual) {
+        const error = new Error('Password is incorrect.');
+        error.code = 401;
+        throw error;
+      }
+      const token = jwt.sign(
+        {
+          userId: user._id.toString(),
+          name: user.name
+        },'somesupersecretsecret',{ expiresIn: '1h' }
+      );
+      return { token: token, userId: user._id.toString() };
     },
     async machines(){
       return await machines.find();
