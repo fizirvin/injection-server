@@ -56,15 +56,20 @@ export const resolvers = {
     async login(_,{ name, password }) {
       const user = await User.findOne({ name: name });
       if (!user) {
-        const error = new Error('User not found.');
+        const error = new Error('User is incorrect.');
         error.code = 401;
         throw error;
       }
       const isEqual = await bcrypt.compare(password, user.password);
       if (!isEqual) {
         const error = new Error('Password is incorrect.');
-        error.code = 401;
+        error.code = 402;
         throw error;
+      }
+      if(!user.active){
+        const error = new Error('User is incorrect.');
+        error.code = 403;
+        throw error
       }
       const token = jwt.sign(
         {
