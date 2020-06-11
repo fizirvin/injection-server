@@ -77,7 +77,7 @@ export const resolvers = {
           name: user.name
         },'somesupersecretsecret',{ expiresIn: '1h' }
       );
-      return { token: token, userId: user._id.toString() };
+      return { token: token, userId: user._id, name: user.name };
     },
     async machines(){
       return await machines.find();

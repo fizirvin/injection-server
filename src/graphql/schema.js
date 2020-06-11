@@ -111,7 +111,8 @@ const typeDefs = `
 
     type AuthData {
         token: String!
-        userId: String!
+        userId: ID!
+        name: String!
     }
 
     type Material{
@@ -183,6 +184,7 @@ const typeDefs = `
         performance: Decimal
         quality: Decimal
         oee: Decimal
+        cycles: Int
     }
 
     type DowntimeDetail {
@@ -358,6 +360,7 @@ const typeDefs = `
         performance: Decimal
         quality: Decimal
         oee: Decimal
+        cycles: Int
     }
 
     input DefectsInput{

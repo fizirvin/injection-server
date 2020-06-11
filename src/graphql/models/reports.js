@@ -84,6 +84,10 @@ const injectionReportSchema = new Schema({
     },
     oee: {
       type: Schema.Types.Decimal128
+    },
+    cycles: {
+      type: Number,
+      required: false,
     }
   }],
   downtimeDetail: [{
