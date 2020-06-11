@@ -153,6 +153,8 @@ const typeDefs = `
         defects: [DefectProduction]
         downtimeDetail: [DowntimeDetail]
         resines: [Resine]
+        createdAt: Date
+        updatedAt: Date
     }
 
     type Resine{
@@ -208,6 +210,17 @@ const typeDefs = `
         cavities: Int
         lifecycles: Int
         tcycles: Int
+    }
+
+    type Cycles {
+        _id: ID!
+        report: InjectionReport!
+        molde: Molde!
+        program: Program!
+        machine: Machine!
+        part: PartNumber!
+        pcs: Int!
+        cycles: Int!
     }
 
     type Issue {
@@ -346,6 +359,8 @@ const typeDefs = `
         downtimeDetail: [DowntimeDetailInput]
         defects: [DefectsInput]
         resines: [ResinesInput]
+        createdAt: Date
+        updatedAt: Date
     }
 
     input InjectionProductionInput {

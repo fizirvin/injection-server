@@ -11,6 +11,7 @@ import defects from './models/defects.js'
 import programs from './models/programs.js'
 import reports from './models/reports.js'
 import User from './models/users.js'
+import Cycle from './models/cycles.js'
 import fullDate from '../functions/fullDate'
 import shortDate from '../functions/shortDate'
 import zonedD from '../functions/zonedD'
@@ -307,7 +308,15 @@ export const resolvers = {
       .populate({path: 'partNumber', model: 'parts'});
     },
     async newInjectionReport(_, { input }){
-      const newReport = new reports(input);
+
+      const date = new Date();
+      const zonedDate = zonedD(date);
+
+      const newReport = new reports({
+        ...input,
+        createdAt: zonedDate, 
+        updatedAt: zonedDate,
+      });
       const already = await reports.find(
         { machine: newReport.machine, 
           reportDate: newReport.reportDate, 
@@ -320,7 +329,24 @@ export const resolvers = {
       }
       
       return await newReport.save().
-      then((newReport) => 
+      then((newReport) =>{
+           newReport.production.map( item =>{
+            const cinput = {
+              report: newReport._id,
+              molde: item.molde,
+              program: item.program,
+              machine: newReport.machine,
+              part: item.partNumber,
+              pcs: item.real,
+              cycles: item.cycles,
+            }
+            const cycle = new Cycle(cinput)
+            
+            return cycle.save()
+          })
+          return newReport
+        }
+      ).then((newReport) => 
         reports.findOne({_id: newReport._id})
         .populate({path: 'machine', model: 'machines'})
         .populate({path: 'production.program', model: 'programs'})
@@ -328,6 +354,7 @@ export const resolvers = {
         .populate({path: 'production.molde', model: 'moldes'})
         .populate({path: 'downtimeDetail.issueId', model: 'issues'})
         .populate({path: 'defects.defect', model: 'defects'})
+        .populate({path: 'userId', model: 'User'})
         .populate({path: 'defects.partNumber', model: 'parts'})
         .populate({path: 'defects.molde', model: 'moldes'})
         .populate({path: 'defects.program', model: 'programs'})
@@ -335,7 +362,17 @@ export const resolvers = {
       );  
     },
     async updateInjectionReport(_,{ _id, input }){
-      return await reports.findByIdAndUpdate(_id,input, {new: true })
+      const date = new Date();
+      const zonedDate = zonedD(date);
+      // const rinput = {
+      //     ...input, 
+      //     updatedAt: zonedDate,
+      // }
+
+      return await reports.findByIdAndUpdate(_id,{
+        ...input, 
+        updatedAt: zonedDate,
+    }, {new: true })
         .populate({path: 'machine', model: 'machines'})
         .populate({path: 'program', model: 'programs'})
         .populate({path: 'production.partNumber', model: 'parts'})

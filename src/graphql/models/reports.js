@@ -7,6 +7,14 @@ const injectionReportSchema = new Schema({
   shift: {
     type: String
   },
+  createdAt: {
+    type: Date,
+    required: false
+  },
+  updatedAt: {
+    type: Date,
+    required: false
+  },
   machine: {
     type: Schema.Types.ObjectId,
     required: true,
