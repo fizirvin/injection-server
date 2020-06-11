@@ -12,6 +12,11 @@ const injectionReportSchema = new Schema({
     required: true,
     ref: 'machines'
   },
+  userId: {
+    type: Schema.Types.ObjectId,
+    required: false,
+    ref: 'User'
+  },
   TReal: {
     type: Number
   },

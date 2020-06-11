@@ -138,6 +138,7 @@ const typeDefs = `
         reportDate: Date
         shift: String
         machine: Machine
+        userId: User
         TReal: Int
         TNG: Int
         TOK: Int
@@ -330,6 +331,7 @@ const typeDefs = `
         reportDate: Date
         shift: String
         machine: ID
+        userId: ID
         TReal: Int
         TNG: Int
         TOK: Int
