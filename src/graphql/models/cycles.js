@@ -3,7 +3,7 @@ import {Schema, model } from 'mongoose';
 const cycleSchema = new Schema({
   machine: {
     type: Schema.Types.ObjectId,
-    required: true,
+    required: false,
     ref: 'machines'
   },
   program: {
@@ -13,7 +13,7 @@ const cycleSchema = new Schema({
   },
   molde: {
     type: Schema.Types.ObjectId,
-    required: true,
+    required: false,
     ref: 'moldes'
   },
   report: {
@@ -23,17 +23,17 @@ const cycleSchema = new Schema({
   },
   part: {
     type: Schema.Types.ObjectId,
-    required: true,
+    required: false,
     ref: 'parts'
   },
   cycles: {
     type: Number,
-    required: true
+    required: false
     
   },
   pcs: {
     type: Number,
-    required: true
+    required: false
   }
 });
 

@@ -21,6 +21,7 @@ const typeDefs = `
         resinesByDate(initial: Date, end: Date): [FlatResine]
         productionByDate(initial: Date, end: Date): [Flat]
         login(name: String, password: String): AuthData!
+        cycles: [Cycles]
     }
 
     type Flat {
@@ -213,14 +214,15 @@ const typeDefs = `
     }
 
     type Cycles {
-        _id: ID!
-        report: InjectionReport!
-        molde: Molde!
-        program: Program!
-        machine: Machine!
-        part: PartNumber!
-        pcs: Int!
-        cycles: Int!
+    
+        report: ID, 
+        date: String, 
+        shift: String, 
+        machine: ID, 
+        part: String, 
+        molde: String, 
+        real: Int,
+        cycles: Int
     }
 
     type Issue {

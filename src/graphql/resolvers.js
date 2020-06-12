@@ -11,7 +11,7 @@ import defects from './models/defects.js'
 import programs from './models/programs.js'
 import reports from './models/reports.js'
 import User from './models/users.js'
-import Cycle from './models/cycles.js'
+
 import fullDate from '../functions/fullDate'
 import shortDate from '../functions/shortDate'
 import zonedD from '../functions/zonedD'
@@ -85,6 +85,69 @@ export const resolvers = {
     },
     async materials(){
       return await materials.find();
+    },
+    async cycles(){
+      return await reports.find().then( report => {
+        const array = [...report]
+        const convert = array.map( item => { 
+          const date = formatDate(item.reportDate);
+          const id = item._id
+          const shift = item.shift
+          const machine = item.machine
+          const production = item.production.map( prod =>{
+           
+            return { 
+              report: id, 
+              date: date, 
+              shift: shift, 
+              machine: machine, 
+              part: prod.partNumber, 
+              molde: prod.molde, 
+              real: prod.real,
+              cycles: prod.cycles
+               }
+          })
+            return production
+        })
+        const flat = [].concat.apply([],convert);
+        return flat
+      })
+      
+
+      // return await moldes.find().then( molde => {
+      //   const array = [...molde]
+      //   const convert = array.map( item => { 
+
+         
+          
+          
+      //     const real = report.filter( i => i.molde === item._id)
+
+      //       const reduceReal = real.reduce( (a, b) =>{
+      //         return a + b.real || 0
+      //       },0)
+
+      //       const cycles = real.filter( i => i.molde.toString === item._id.toString).reduce( (a, b) =>{
+      //         return a + b.cycles || 0
+      //       },0)
+          
+
+      //       console.log(report)
+          
+      //     return { 
+      //       _id: item._id,
+      //       moldeNumber: item.moldeNumber,
+      //       moldeSerial: item.moldeSerial,
+      //       cavities: item.cavities,
+      //       lifecycles: item.lifecycles,
+      //       tcycles: item.tcycles,
+      //       cycles: 1000,
+      //       real: 2000, 
+      //       cyclessum: 100
+      //     }
+      //   })
+      //   return convert
+      // })
     },
     async moldes(){
       return await moldes.find();
@@ -329,24 +392,7 @@ export const resolvers = {
       }
       
       return await newReport.save().
-      then((newReport) =>{
-           newReport.production.map( item =>{
-            const cinput = {
-              report: newReport._id,
-              molde: item.molde,
-              program: item.program,
-              machine: newReport.machine,
-              part: item.partNumber,
-              pcs: item.real,
-              cycles: item.cycles,
-            }
-            const cycle = new Cycle(cinput)
-            
-            return cycle.save()
-          })
-          return newReport
-        }
-      ).then((newReport) => 
+      then((newReport) => 
         reports.findOne({_id: newReport._id})
         .populate({path: 'machine', model: 'machines'})
         .populate({path: 'production.program', model: 'programs'})
@@ -364,11 +410,6 @@ export const resolvers = {
     async updateInjectionReport(_,{ _id, input }){
       const date = new Date();
       const zonedDate = zonedD(date);
-      // const rinput = {
-      //     ...input, 
-      //     updatedAt: zonedDate,
-      // }
-
       return await reports.findByIdAndUpdate(_id,{
         ...input, 
         updatedAt: zonedDate,
