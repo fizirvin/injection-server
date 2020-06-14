@@ -167,18 +167,30 @@ export const resolvers = {
       .populate({path: 'partNumber', model: 'parts'});
     },
     async reports(){
-      return await reports.find()
+      const report = await reports.find()
       .populate({path: 'machine', model: 'machines'})
       .populate({path: 'production.program', model: 'programs'})
       .populate({path: 'production.partNumber', model: 'parts'})
       .populate({path: 'production.molde', model: 'moldes'})
       .populate({path: 'defects.defect', model: 'defects'})
+      .populate({path: 'userId', model: 'User'})
       .populate({path: 'defects.molde', model: 'moldes'})
       .populate({path: 'defects.partNumber', model: 'parts'})
       .populate({path: 'defects.program', model: 'programs'})
       .populate({path: 'downtimeDetail.issueId', model: 'issues'})
       .populate({path: 'resines.resine', model: 'materials'})
       .sort({ reportDate: -1 });
+
+      
+      const rep = report.map(item =>{
+        const { createdAt, updatedAt } = item
+        
+        const fullcreatedAt = fullDate(createdAt)
+        const fullupdatedAt = fullDate(updatedAt)
+        return {...item._doc, createdAt: fullcreatedAt, updatedAt: fullupdatedAt }
+      })
+      return rep
+      
     },
     async downtimeByDate(parent, args){
       return await reports.find({ reportDate: { $gte: args.initial, $lte: args.end } })
@@ -391,7 +403,7 @@ export const resolvers = {
         throw error
       }
       
-      return await newReport.save().
+      const report = await newReport.save().
       then((newReport) => 
         reports.findOne({_id: newReport._id})
         .populate({path: 'machine', model: 'machines'})
@@ -405,12 +417,19 @@ export const resolvers = {
         .populate({path: 'defects.molde', model: 'moldes'})
         .populate({path: 'defects.program', model: 'programs'})
         .populate({path: 'resines.resine', model: 'materials'})
-      );  
+      ); 
+      
+      const rep = report.map(item =>{
+        const { createdAt } = item
+        const fullcreatedAt = fullDate(createdAt)
+        return {...item._doc, createdAt: fullcreatedAt }
+      })
+      return rep
     },
     async updateInjectionReport(_,{ _id, input }){
       const date = new Date();
       const zonedDate = zonedD(date);
-      return await reports.findByIdAndUpdate(_id,{
+      const report = await reports.findByIdAndUpdate(_id,{
         ...input, 
         updatedAt: zonedDate,
     }, {new: true })
@@ -419,11 +438,19 @@ export const resolvers = {
         .populate({path: 'production.partNumber', model: 'parts'})
         .populate({path: 'production.molde', model: 'moldes'})
         .populate({path: 'defects.defect', model: 'defects'})
+        .populate({path: 'userId', model: 'User'})
         .populate({path: 'defects.partNumber', model: 'parts'})
         .populate({path: 'defects.molde', model: 'moldes'})
         .populate({path: 'defects.program', model: 'programs'})
         .populate({path: 'downtimeDetail.issueId', model: 'issues'})
         .populate({path: 'resines.resine', model: 'materials'})
+
+        const rep = report.map(item =>{
+          const { updatedAt } = item
+          const fullupdatedAt = fullDate(updatedAt)
+          return {...item._doc, updatedAt: fullupdatedAt }
+        })
+        return rep
     },
     async newUser(_,{  input }) {
       if ( !validator.isLength(input.password, { min: 5 })) {
