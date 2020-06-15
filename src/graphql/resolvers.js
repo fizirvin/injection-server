@@ -389,8 +389,7 @@ export const resolvers = {
 
       const newReport = new reports({
         ...input,
-        createdAt: zonedDate, 
-        updatedAt: zonedDate,
+        createdAt: zonedDate
       });
       const already = await reports.find(
         { machine: newReport.machine, 
@@ -419,12 +418,13 @@ export const resolvers = {
         .populate({path: 'resines.resine', model: 'materials'})
       ); 
       
-      const rep = report.map(item =>{
-        const { createdAt } = item
+      
+        
+        const { createdAt } = report
         const fullcreatedAt = fullDate(createdAt)
-        return {...item._doc, createdAt: fullcreatedAt }
-      })
-      return rep
+        
+        return {...report._doc, createdAt: fullcreatedAt }
+
     },
     async updateInjectionReport(_,{ _id, input }){
       const date = new Date();
@@ -445,12 +445,11 @@ export const resolvers = {
         .populate({path: 'downtimeDetail.issueId', model: 'issues'})
         .populate({path: 'resines.resine', model: 'materials'})
 
-        const rep = report.map(item =>{
-          const { updatedAt } = item
-          const fullupdatedAt = fullDate(updatedAt)
-          return {...item._doc, updatedAt: fullupdatedAt }
-        })
-        return rep
+        const { updatedAt, createdAt } = report
+        const fullupdatedAt = fullDate(updatedAt)
+        const fullcreatedAt = fullDate(createdAt)
+        
+        return {...report._doc, updatedAt: fullupdatedAt, createdAt: fullcreatedAt }
     },
     async newUser(_,{  input }) {
       if ( !validator.isLength(input.password, { min: 5 })) {
