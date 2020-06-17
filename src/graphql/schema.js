@@ -27,7 +27,6 @@ const typeDefs = `
 
     type DayTotalRecord{
         date: Date,
-        shift: String,
         ng: Int,
         ok: Int,
         plan: Int

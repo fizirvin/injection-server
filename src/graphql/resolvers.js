@@ -15,7 +15,7 @@ import User from './models/users.js'
 import fullDate from '../functions/fullDate'
 import shortDate from '../functions/shortDate'
 import zonedD from '../functions/zonedD'
-import { addBusinessDays } from 'date-fns';
+
 
 function formatDate(format){
   let formatDate
@@ -89,13 +89,30 @@ export const resolvers = {
     },
     async daytotalrecord(){
       return await reports.find().then( report => {
-        const convert = report.map( ({shift, reportDate,TNG, TOK, TPlan}) => { 
+
+        const uniqueReportList = Array.from(new Set(report.map( ({reportDate})  =>{ 
+          const reduce = report.find( item => item.reportDate.toString() === reportDate.toString() )
+          return reduce })))
+
+        const convert = uniqueReportList.map( item => { 
+
+          const filter = report.filter( i => i.reportDate.toString() === item.reportDate.toString())
+          const reducePlan = filter.reduce( (a, b) =>{
+                    return a + b.TPlan || 0
+                  },0)
+          const reduceNG = filter.reduce( (a, b) =>{
+            return a + b.TNG || 0
+          },0)
+
+          const reduceOK = filter.reduce( (a, b) =>{
+            return a + b.TOK || 0
+          },0)
+          
           return {
-            date: shortDate(reportDate),
-            shift: shift,
-            ng: TNG,
-            ok: TOK,
-            plan: TPlan
+            date: shortDate(item.reportDate),
+            ng: reduceNG,
+            ok: reduceOK,
+            plan: reducePlan
 
           }
         })
