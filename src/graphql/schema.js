@@ -22,6 +22,15 @@ const typeDefs = `
         productionByDate(initial: Date, end: Date): [Flat]
         login(name: String, password: String): AuthData!
         cycles: [Cycles]
+        daytotalrecord: [DayTotalRecord]
+    }
+
+    type DayTotalRecord{
+        date: Date,
+        shift: String,
+        ng: Int,
+        ok: Int,
+        plan: Int
     }
 
     type Flat {

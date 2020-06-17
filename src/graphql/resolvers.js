@@ -15,6 +15,7 @@ import User from './models/users.js'
 import fullDate from '../functions/fullDate'
 import shortDate from '../functions/shortDate'
 import zonedD from '../functions/zonedD'
+import { addBusinessDays } from 'date-fns';
 
 function formatDate(format){
   let formatDate
@@ -85,6 +86,21 @@ export const resolvers = {
     },
     async materials(){
       return await materials.find();
+    },
+    async daytotalrecord(){
+      return await reports.find().then( report => {
+        const convert = report.map( ({shift, reportDate,TNG, TOK, TPlan}) => { 
+          return {
+            date: shortDate(reportDate),
+            shift: shift,
+            ng: TNG,
+            ok: TOK,
+            plan: TPlan
+
+          }
+        })
+        return convert
+      })
     },
     async cycles(){
       return await reports.find().then( report => {
