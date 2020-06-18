@@ -117,7 +117,7 @@ export const resolvers = {
 
           }
         })
-        return convert.sort((a, b) => (a.date > b.date ) ? -1 : 1 );
+        return convert
       })
     },
     async weektotalrecord(){
