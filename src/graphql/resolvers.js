@@ -14,6 +14,7 @@ import User from './models/users.js'
 
 import fullDate from '../functions/fullDate'
 import shortDate from '../functions/shortDate'
+import yearWeek from '../functions/yearWeek'
 import zonedD from '../functions/zonedD'
 
 
@@ -117,6 +118,48 @@ export const resolvers = {
           }
         })
         return convert
+      })
+    },
+    async weektotalrecord(){
+      return await reports.find().then( report => {
+
+        const weekreports = report.map( week =>{
+          return {
+            date: yearWeek(week.reportDate),
+            ng: week.TNG,
+            plan: week.TPlan,
+            ok: week.TOK,
+            ng: week.TNG
+          }
+        })
+
+        const uniqueReportList = Array.from(new Set(weekreports.map( ({date})  =>{ 
+          const reduce = weekreports.find( item => item.date.toString() === date )
+          return reduce })))
+
+        const convert = uniqueReportList.map( item => { 
+
+          const filter = report.filter( i => yearWeek(i.reportDate) === item.date)
+          const reducePlan = filter.reduce( (a, b) =>{
+                    return a + b.TPlan || 0
+                  },0)
+          const reduceNG = filter.reduce( (a, b) =>{
+            return a + b.TNG || 0
+          },0)
+
+          const reduceOK = filter.reduce( (a, b) =>{
+            return a + b.TOK || 0
+          },0)
+          
+          return {
+            week: item.date,
+            ng: reduceNG,
+            ok: reduceOK,
+            remainning: reducePlan - reduceNG - reduceOK
+
+          }
+        })
+        return convert.sort((a, b) => (a.week > b.week ) ? 1 : -1 );
       })
     },
     async cycles(){

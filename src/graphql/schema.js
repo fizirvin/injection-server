@@ -23,6 +23,7 @@ const typeDefs = `
         login(name: String, password: String): AuthData!
         cycles: [Cycles]
         daytotalrecord: [DayTotalRecord]
+        weektotalrecord: [WeekTotalRecord]
     }
 
     type DayTotalRecord{
@@ -30,6 +31,13 @@ const typeDefs = `
         ng: Int,
         ok: Int,
         plan: Int
+    }
+
+    type WeekTotalRecord{
+        week: String,
+        ng: Int,
+        ok: Int,
+        remainning: Int
     }
 
     type Flat {
