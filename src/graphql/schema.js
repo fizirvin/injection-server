@@ -30,7 +30,7 @@ const typeDefs = `
         date: Date,
         ng: Int,
         ok: Int,
-        plan: Int
+        remainning: Int
     }
 
     type WeekTotalRecord{

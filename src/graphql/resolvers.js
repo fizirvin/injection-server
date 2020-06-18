@@ -113,11 +113,11 @@ export const resolvers = {
             date: shortDate(item.reportDate),
             ng: reduceNG,
             ok: reduceOK,
-            plan: reducePlan
+            remainning: reducePlan - reduceNG - reduceOK
 
           }
         })
-        return convert
+        return convert.sort((a, b) => (a.date > b.date ) ? -1 : 1 );
       })
     },
     async weektotalrecord(){
