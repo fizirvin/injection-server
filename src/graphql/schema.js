@@ -24,6 +24,8 @@ const typeDefs = `
         cycles: [Cycles]
         daytotalrecord: [DayTotalRecord]
         weektotalrecord: [WeekTotalRecord]
+        daytotalpurge: [DayTotalPurge]
+        weektotalpurge: [WeekTotalPurge]
     }
 
     type DayTotalRecord{
@@ -31,6 +33,16 @@ const typeDefs = `
         ng: Int,
         ok: Int,
         remainning: Int
+    }
+
+    type DayTotalPurge{
+        date: Date,
+        purge: Int
+    }
+
+    type WeekTotalPurge{
+        week: String,
+        purge: Int
     }
 
     type WeekTotalRecord{

@@ -88,6 +88,41 @@ export const resolvers = {
     async materials(){
       return await materials.find();
     },
+    async daytotalpurge(){
+      return await reports.find().then( report => {
+
+        const uniqueReportList = Array.from(new Set(report.map( ({reportDate})  =>{ 
+          const reduce = report.find( item => item.reportDate.toString() === reportDate.toString() )
+          return reduce })))
+
+        const convert = uniqueReportList.map( item => { 
+
+          const filter = report.filter( i => i.reportDate.toString() === item.reportDate.toString())
+
+          const convert = filter.map( it => { 
+            const production = it.resines.map( resine =>{
+             
+              return { 
+                purge: resine.purge
+                 }
+            })
+              return production
+          })
+          const flat = [].concat.apply([],convert);
+          const reducePurge = flat.reduce( (a, b) =>{
+                      return a + b.purge || 0
+                    },0)
+
+          
+          return {
+            date: shortDate(item.reportDate),
+            purge: reducePurge
+
+          }
+        })
+        return convert
+      })
+    },
     async daytotalrecord(){
       return await reports.find().then( report => {
 
@@ -118,6 +153,48 @@ export const resolvers = {
           }
         })
         return convert
+      })
+    },async weektotalpurge(){
+      return await reports.find().then( report => {
+
+        const weekreports = report.map( week =>{
+          return {
+            date: yearWeek(week.reportDate),
+            resines: week.resines
+          }
+        })
+
+        const uniqueReportList = Array.from(new Set(weekreports.map( ({date})  =>{ 
+          const reduce = weekreports.find( item => item.date.toString() === date )
+          return reduce })))
+
+        const convert = uniqueReportList.map( item => { 
+          const filter = report.filter( i => yearWeek(i.reportDate) === item.date)
+
+          const convert = filter.map( it => { 
+            const production = it.resines.map( resine =>{
+             
+              return { 
+                purge: resine.purge
+                 }
+            })
+              return production
+          })
+          const flat = [].concat.apply([],convert);
+          const reducePurge = flat.reduce( (a, b) =>{
+                      return a + b.purge || 0
+                    },0)
+
+          
+          return {
+            week: item.date,
+            purge: reducePurge
+
+          }
+        })
+
+        
+        return convert.sort((a, b) => (a.week > b.week ) ? 1 : -1 );
       })
     },
     async weektotalrecord(){
