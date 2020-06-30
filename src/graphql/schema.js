@@ -178,6 +178,7 @@ const typeDefs = `
         TPerformance: Decimal
         TQuality: Decimal
         TOEE: Decimal
+        TProd: Int
         production: [InjectionProduction]
         defects: [DefectProduction]
         downtimeDetail: [DowntimeDetail]
@@ -209,6 +210,7 @@ const typeDefs = `
         real: Int
         ng: Int
         ok: Int
+        prod: Int
         plan: Int
         wtime: Decimal
         dtime: Decimal

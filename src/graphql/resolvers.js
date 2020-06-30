@@ -83,10 +83,10 @@ export const resolvers = {
       return { token: token, userId: user._id, name: user.name };
     },
     async machines(){
-      return await machines.find();
+      return await machines.find().sort({ _id: 1 });
     },
     async materials(){
-      return await materials.find();
+      return await materials.find().sort({ _id: 1 });
     },
     async daytotalpurge(){
       return await reports.find().then( report => {
@@ -303,13 +303,13 @@ export const resolvers = {
       // })
     },
     async moldes(){
-      return await moldes.find();
+      return await moldes.find().sort({ _id: 1 });
     },
     async parts(){
-      return await parts.find();
+      return await parts.find().sort({ _id: 1 });
     },
     async issues(){
-      return await issues.find();
+      return await issues.find().sort({ _id: 1 });
     },
     async defects(){
       return await defects.find().sort({ defectName: 1 });
@@ -317,7 +317,8 @@ export const resolvers = {
     async programs(){
       return await programs.find().populate({path: 'machineNumber', model: 'machines'})
       .populate({path: 'moldeNumber', model: 'moldes'})
-      .populate({path: 'partNumber', model: 'parts'});
+      .populate({path: 'partNumber', model: 'parts'})
+      .sort({ _id: 1 });
     },
     async reports(){
       const report = await reports.find()

@@ -37,6 +37,9 @@ const injectionReportSchema = new Schema({
   TPlan: {
     type: Number
   },
+  TProd: {
+    type: Number
+  },
   TWTime: {
     type: Schema.Types.Decimal128
   },
