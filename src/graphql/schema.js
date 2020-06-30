@@ -381,6 +381,7 @@ const typeDefs = `
         TNG: Int
         TOK: Int
         TPlan: Int
+        TProd: Int
         TWTime: Decimal
         TDTime: Decimal
         TAvailability: Decimal
@@ -403,6 +404,7 @@ const typeDefs = `
         ng: Int
         ok: Int
         plan: Int
+        prod: Int
         wtime: Decimal
         dtime: Decimal
         availability: Decimal
