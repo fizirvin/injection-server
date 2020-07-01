@@ -83,6 +83,9 @@ const injectionReportSchema = new Schema({
     plan: {
       type: Number
     },
+    prod: {
+      type: Number
+    },
     wtime: {
       type: Schema.Types.Decimal128
     },
