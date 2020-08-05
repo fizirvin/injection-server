@@ -57,6 +57,7 @@ const typeDefs = `
         date: String
         shift: String
         machine: ID
+        machineNumber: String
         part: ID
         molde: ID
         real: Int
