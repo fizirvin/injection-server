@@ -439,6 +439,8 @@ export const resolvers = {
     async productionByDate(parent, args){
       return await reports.find({ reportDate: { $gte: args.initial, $lte: args.end } })
       .populate({path: 'machine', model: 'machines'})
+      .populate({path: 'production.partNumber', model: 'parts'})
+      .populate({path: 'production.molde', model: 'moldes'})
       .sort({ reportDate: 1 }).then( report => {
         const array = [...report]
         const convert = array.map( item => { 
@@ -448,14 +450,17 @@ export const resolvers = {
           const machine = item.machine._id
           const machineNumber = item.machine.machineNumber
           const production = item.production.map( prod =>{
+            
             return { 
               report: id, 
               date: date, 
               shift: shift, 
               machine: machine,
               machineNumber: machineNumber, 
-              part: prod.partNumber, 
-              molde: prod.molde, 
+              part: prod.partNumber._id,
+              partName: prod.partNumber.partName, 
+              molde: prod.molde._id,
+              moldeNumber: prod.molde.moldeNumber, 
               real: prod.real,
               ng: prod.ng, 
               ok: prod.ok,

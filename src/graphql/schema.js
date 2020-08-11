@@ -59,7 +59,9 @@ const typeDefs = `
         machine: ID
         machineNumber: String
         part: ID
+        partName: String
         molde: ID
+        moldeNumber: String
         real: Int
         ng: Int
         ok: Int
