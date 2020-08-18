@@ -265,42 +265,6 @@ export const resolvers = {
         const flat = [].concat.apply([],convert);
         return flat
       })
-      
-
-      // return await moldes.find().then( molde => {
-      //   const array = [...molde]
-      //   const convert = array.map( item => { 
-
-         
-          
-          
-      //     const real = report.filter( i => i.molde === item._id)
-
-      //       const reduceReal = real.reduce( (a, b) =>{
-      //         return a + b.real || 0
-      //       },0)
-
-      //       const cycles = real.filter( i => i.molde.toString === item._id.toString).reduce( (a, b) =>{
-      //         return a + b.cycles || 0
-      //       },0)
-          
-
-      //       console.log(report)
-          
-      //     return { 
-      //       _id: item._id,
-      //       moldeNumber: item.moldeNumber,
-      //       moldeSerial: item.moldeSerial,
-      //       cavities: item.cavities,
-      //       lifecycles: item.lifecycles,
-      //       tcycles: item.tcycles,
-      //       cycles: 1000,
-      //       real: 2000, 
-      //       cyclessum: 100
-      //     }
-      //   })
-      //   return convert
-      // })
     },
     async moldes(){
       return await moldes.find().sort({ _id: 1 });
@@ -320,8 +284,19 @@ export const resolvers = {
       .populate({path: 'partNumber', model: 'parts'})
       .sort({ _id: 1 });
     },
-    async reports(){
+    async reports(_, { page, add }){
+      
+      if(!page){
+        page = 1
+      }
+      if(!add){
+        add = 0
+      }
+      const perPage = 100;
+      const totalReports = await reports.find().countDocuments();
       const report = await reports.find()
+      .skip( ((page - 1) * perPage) + add)
+      .limit(perPage)
       .populate({path: 'machine', model: 'machines'})
       .populate({path: 'production.program', model: 'programs'})
       .populate({path: 'production.partNumber', model: 'parts'})
@@ -343,7 +318,7 @@ export const resolvers = {
         const fullupdatedAt = fullDate(updatedAt)
         return {...item._doc, createdAt: fullcreatedAt, updatedAt: fullupdatedAt }
       })
-      return rep
+      return { totalReports: totalReports, reports: rep}
       
     },
     async downtimeByDate(parent, args){

@@ -15,7 +15,7 @@ const typeDefs = `
         issues: [Issue]
         defects: [Defect]
         programs: [Program]
-        reports: [InjectionReport]
+        reports(page: Int, add: Int): ReportData!
         downtimeByDate(initial: Date, end: Date): [FlatDownTime]
         defectsByDate(initial: Date, end: Date): [FlatDefect]
         resinesByDate(initial: Date, end: Date): [FlatResine]
@@ -26,6 +26,11 @@ const typeDefs = `
         weektotalrecord: [WeekTotalRecord]
         daytotalpurge: [DayTotalPurge]
         weektotalpurge: [WeekTotalPurge]
+    }
+
+    type ReportData{
+        totalReports: Int
+        reports: [InjectionReport!]
     }
 
     type DayTotalRecord{
