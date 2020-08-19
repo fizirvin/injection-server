@@ -191,8 +191,16 @@ const typeDefs = `
         defects: [DefectProduction]
         downtimeDetail: [DowntimeDetail]
         resines: [Resine]
+        comments: String
+        workers: Workers
         createdAt: Date
         updatedAt: Date
+    }
+
+    type Workers{
+        team: String
+        operator: ID
+        inspector: ID
     }
 
     type Resine{
@@ -400,8 +408,16 @@ const typeDefs = `
         downtimeDetail: [DowntimeDetailInput]
         defects: [DefectsInput]
         resines: [ResinesInput]
+        workers: WorkersInput
+        comments: String
         createdAt: Date
         updatedAt: Date
+    }
+
+    input WorkersInput{
+        team: String
+        operator: ID
+        inspector: ID
     }
 
     input InjectionProductionInput {

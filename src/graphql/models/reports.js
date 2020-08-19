@@ -147,7 +147,25 @@ const injectionReportSchema = new Schema({
     purge: {
       type: Number
     }, 
-  }]
+  }],
+  comments: {
+    type: String,
+    required: false
+  },
+  workers: {
+    team: { 
+      type: String,
+      required: false,
+    },
+    operator: {
+      type: Schema.Types.ObjectId,
+      required: false,
+    },
+    inspector: { 
+      type: Schema.Types.ObjectId,
+      required: false,
+    }
+  }
 });
 
 export default model('reports', injectionReportSchema);
