@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 
 import machines from './models/machines.js'
 import moldes from './models/moldes.js'
+import cleanings from './models/cleanings'
 import materials from './models/materials.js'
 import parts from './models/parts.js'
 import issues from './models/issues.js'
@@ -46,6 +47,9 @@ function formatDate(format){
 
 export const resolvers = {
   Query: {
+    async cleanings(_,{ molde }){
+      return await cleanings.find({ molde: molde})
+    },
     async users(){
       const users = await User.find();
       const userFormat= users.map( item =>{
@@ -455,6 +459,16 @@ export const resolvers = {
     }
   },
   Mutation: {
+    async newCleaning(_, { input }){
+      let counted
+      const last_cycle = await cleanings.findOne({molde: input.molde}).sort({cycles: -1})
+      if(!last_cycle){ counted = 0}
+      else{ counted = input.cycles - last_cycle._doc.cycles }
+      input.counted = counted
+      const newCleaning = new cleanings(input);
+      await newCleaning.save();   
+      return newCleaning;
+    },
     async newMachine(_, { input }){
       const newMachine = new machines(input);
       await newMachine.save();   

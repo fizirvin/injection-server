@@ -26,6 +26,7 @@ const typeDefs = `
         weektotalrecord: [WeekTotalRecord]
         daytotalpurge: [DayTotalPurge]
         weektotalpurge: [WeekTotalPurge]
+        cleanings(molde: ID): [Cleaning]
     }
 
     type ReportData{
@@ -294,8 +295,23 @@ const typeDefs = `
         capacity: Int!
     }
 
+    type Cleaning{
+        _id: ID!
+        molde: Molde!
+        date: String!
+        shift: String!
+        team: String!
+        cycles: Int!
+        counted: Int
+        comments: String
+
+    }
+
 
     type Mutation {
+        newCleaning(_id: ID, input: NewCleaning): Cleaning
+
+
         newInjectionReport(_id: ID, input: NewInjectionReport): InjectionReport
         updateInjectionReport(_id: ID, input: NewInjectionReport): InjectionReport
         
@@ -323,6 +339,15 @@ const typeDefs = `
         updateUser(_id: ID, input: UpdatedUser): UserFormatDate
         newUser(_id: ID, input: NewUser): UserFormatDate
         
+    }
+
+    input NewCleaning{
+        molde: ID!
+        date: String!
+        shift: String!
+        team: String!
+        cycles: Int!
+        comments: String
     }
 
     input NewUser {
