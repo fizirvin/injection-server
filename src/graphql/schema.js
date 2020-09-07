@@ -310,7 +310,7 @@ const typeDefs = `
 
     type Mutation {
         newCleaning(_id: ID, input: NewCleaning): Cleaning
-
+        updateCleaning(_id: ID, input: NewCleaning): Cleaning
 
         newInjectionReport(_id: ID, input: NewInjectionReport): InjectionReport
         updateInjectionReport(_id: ID, input: NewInjectionReport): InjectionReport

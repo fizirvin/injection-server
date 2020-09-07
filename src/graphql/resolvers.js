@@ -469,6 +469,15 @@ export const resolvers = {
       await newCleaning.save();   
       return newCleaning;
     },
+    async updateCleaning(_,{ _id, input }){
+      const oldCleaning = await cleanings.findById(_id)
+      let counted
+      const last_cycle = await cleanings.findOne({molde: input.molde, cycles:{$lt: oldCleaning.cycles} }).sort({cycles: -1})
+      if(!last_cycle){ counted = 0}
+      else{ counted = input.cycles - last_cycle._doc.cycles }
+      input.counted = counted
+      return await cleanings.findByIdAndUpdate(_id,input, {new: true });
+    },
     async newMachine(_, { input }){
       const newMachine = new machines(input);
       await newMachine.save();   
