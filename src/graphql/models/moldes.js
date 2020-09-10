@@ -20,6 +20,18 @@ const moldeSchema = new Schema({
   tcycles: {
     type: Number,
     required: false
+  },
+  shot: {
+    type: Number,
+    required: false
+  },
+  quantity: {
+    type: Number,
+    required: false
+  },
+  active: {
+    type: Boolean,
+    required: false
   }
 });
 

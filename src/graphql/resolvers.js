@@ -243,6 +243,35 @@ export const resolvers = {
         return convert.sort((a, b) => (a.week > b.week ) ? 1 : -1 );
       })
     },
+    async tcycles(){
+      const moldesArray = await moldes.find()
+
+      return await reports.find().then( report => {
+        const array = [...report]
+        const convert = array.map( item => { 
+          const production = item.production.map( prod =>{
+           
+            return {  
+              molde: prod.molde.toString(),
+              cycles: prod.cycles
+            }
+          })
+            return production
+        })
+        const flat = [].concat.apply([],convert);
+        const tcycles = moldesArray.map( molde =>{
+          const reduce = flat.filter( item => item.molde === molde._id.toString()).reduce( (a, b) =>{
+            return a + b.cycles || 0
+          },0)
+
+          return { molde: molde._id, tcycles: reduce}
+
+        })
+
+        return tcycles
+      })
+      
+    },
     async cycles(){
       return await reports.find().then( report => {
         const array = [...report]
@@ -487,6 +516,7 @@ export const resolvers = {
       return await machines.findByIdAndUpdate(_id,input, {new: true });
     },
     async newMolde(_, { input }){
+      input.active = true
       const newMolde = new moldes(input);
       await newMolde.save();   
       return newMolde;

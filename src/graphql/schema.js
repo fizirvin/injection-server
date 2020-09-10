@@ -22,6 +22,7 @@ const typeDefs = `
         productionByDate(initial: Date, end: Date): [Flat]
         login(name: String, password: String): AuthData!
         cycles: [Cycles]
+        tcycles: [TCycles]
         daytotalrecord: [DayTotalRecord]
         weektotalrecord: [WeekTotalRecord]
         daytotalpurge: [DayTotalPurge]
@@ -258,10 +259,12 @@ const typeDefs = `
         cavities: Int
         lifecycles: Int
         tcycles: Int
+        shot: Int
+        quantity: Int
+        active: Boolean
     }
 
     type Cycles {
-    
         report: ID, 
         date: String, 
         shift: String, 
@@ -270,6 +273,11 @@ const typeDefs = `
         molde: String, 
         real: Int,
         cycles: Int
+    }
+
+    type TCycles { 
+        molde: ID
+        tcycles: Int
     }
 
     type Issue {
@@ -374,6 +382,9 @@ const typeDefs = `
         cavities: Int!
         lifecycles: Int
         tcycles: Int
+        shot: Int
+        quantity: Int
+        active: Boolean
     }
 
     input NewPartNumber {
