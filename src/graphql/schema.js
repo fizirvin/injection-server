@@ -27,7 +27,7 @@ const typeDefs = `
         weektotalrecord: [WeekTotalRecord]
         daytotalpurge: [DayTotalPurge]
         weektotalpurge: [WeekTotalPurge]
-        cleanings(molde: ID): [Cleaning]
+        cleanings: [Cleaning]
     }
 
     type ReportData{

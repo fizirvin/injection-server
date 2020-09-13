@@ -47,8 +47,10 @@ function formatDate(format){
 
 export const resolvers = {
   Query: {
-    async cleanings(_,{ molde }){
-      return await cleanings.find({ molde: molde})
+    async cleanings(){
+      return await cleanings.find()
+      .sort({ _id: 1 })
+      .populate({path: 'molde', model: 'moldes'})
     },
     async users(){
       const users = await User.find();
@@ -495,8 +497,8 @@ export const resolvers = {
       else{ counted = input.cycles - last_cycle._doc.cycles }
       input.counted = counted
       const newCleaning = new cleanings(input);
-      await newCleaning.save();   
-      return newCleaning;
+      return await newCleaning.save().then((newCleaning) => cleanings.findOne({ _id: newCleaning._id })
+      .populate({path: 'molde', model: 'moldes'}))
     },
     async updateCleaning(_,{ _id, input }){
       const oldCleaning = await cleanings.findById(_id)
@@ -505,7 +507,7 @@ export const resolvers = {
       if(!last_cycle){ counted = 0}
       else{ counted = input.cycles - last_cycle._doc.cycles }
       input.counted = counted
-      return await cleanings.findByIdAndUpdate(_id,input, {new: true });
+      return await cleanings.findByIdAndUpdate(_id,input, {new: true }).populate({path: 'molde', model: 'moldes'});
     },
     async newMachine(_, { input }){
       const newMachine = new machines(input);
