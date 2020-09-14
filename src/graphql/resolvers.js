@@ -274,8 +274,12 @@ export const resolvers = {
       })
       
     },
-    async cycles(){
-      return await reports.find().then( report => {
+    async cycles(_, { molde, initial }){
+      let finalDate = new Date()
+      const after = await cleanings.find({molde, date: { $gt: initial}})
+      if(after.length > 0 ){ finalDate = after[0].date+'T23:59:59.000Z' }
+
+      return await reports.find( {"production.molde": molde, reportDate: { $gt: initial+'T23:59:59.000Z', $lte: finalDate }}).then( report => {
         const array = [...report]
         const convert = array.map( item => { 
           const date = formatDate(item.reportDate);

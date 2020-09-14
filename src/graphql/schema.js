@@ -21,7 +21,7 @@ const typeDefs = `
         resinesByDate(initial: Date, end: Date): [FlatResine]
         productionByDate(initial: Date, end: Date): [Flat]
         login(name: String, password: String): AuthData!
-        cycles: [Cycles]
+        cycles(molde: ID, initial: Date): [Cycles]
         tcycles: [TCycles]
         daytotalrecord: [DayTotalRecord]
         weektotalrecord: [WeekTotalRecord]
