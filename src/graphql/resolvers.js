@@ -274,12 +274,17 @@ export const resolvers = {
       })
       
     },
-    async cycles(_, { molde, initial }){
+    async cycles(_, { cleaning }){
       let finalDate = new Date()
-      const after = await cleanings.find({molde, date: { $gt: initial}})
-      if(after.length > 0 ){ finalDate = after[0].date+'T23:59:59.000Z' }
+      const cleaningDoc = await cleanings.findById(cleaning)
+      const { molde, date, shift, active, end, shiftEnd } = cleaningDoc
+      
+      // const after = await cleanings.find({molde, date: { $gt: initial}})
+      if(!active ){ finalDate = end+'T23:59:59.000Z'  }
 
-      return await reports.find( {"production.molde": molde, reportDate: { $gt: initial+'T23:59:59.000Z', $lte: finalDate }}).then( report => {
+      return await reports.find( {"production.molde": molde, reportDate: { $gte: date, $lte: finalDate }})
+      .sort({ reportDate: 1 })
+      .then( report => {
         const array = [...report]
         const convert = array.map( item => { 
           const date = formatDate(item.reportDate);
@@ -302,6 +307,17 @@ export const resolvers = {
             return production
         })
         const flat = [].concat.apply([],convert);
+
+        if(shift === '2'){
+          const removeItem = flat.find( item => item.date === date && item.shift === '1')
+          
+          return flat.filter( item => item.report !== removeItem.report )
+        }
+        if(!active && shiftEnd === '1'){
+          const removeItem = flat.find( item => item.date === end && item.shift === '2')
+          
+          return flat.filter( item => item.report !== removeItem.report )
+        }
         return flat
       })
     },
@@ -495,22 +511,26 @@ export const resolvers = {
   },
   Mutation: {
     async newCleaning(_, { input }){
-      let counted
-      const last_cycle = await cleanings.findOne({molde: input.molde}).sort({cycles: -1})
-      if(!last_cycle){ counted = 0}
-      else{ counted = input.cycles - last_cycle._doc.cycles }
-      input.counted = counted
+      // let counted
+      // const last_cycle = await cleanings.findOne({molde: input.molde}).sort({cycles: -1})
+      // if(!last_cycle){ counted = 0}
+      // else{ counted = input.cycles - last_cycle._doc.cycles }
+      input.active = true
       const newCleaning = new cleanings(input);
       return await newCleaning.save().then((newCleaning) => cleanings.findOne({ _id: newCleaning._id })
       .populate({path: 'molde', model: 'moldes'}))
     },
     async updateCleaning(_,{ _id, input }){
-      const oldCleaning = await cleanings.findById(_id)
-      let counted
-      const last_cycle = await cleanings.findOne({molde: input.molde, cycles:{$lt: oldCleaning.cycles} }).sort({cycles: -1})
-      if(!last_cycle){ counted = 0}
-      else{ counted = input.cycles - last_cycle._doc.cycles }
-      input.counted = counted
+      // const oldCleaning = await cleanings.findById(_id)
+      // let counted
+      // const last_cycle = await cleanings.findOne({molde: input.molde, cycles:{$lt: oldCleaning.cycles} }).sort({cycles: -1})
+      // if(!last_cycle){ counted = 0}
+      // else{ counted = input.cycles - last_cycle._doc.cycles }
+      // input.counted = counted
+      return await cleanings.findByIdAndUpdate(_id,input, {new: true }).populate({path: 'molde', model: 'moldes'});
+    },
+    async finishCleaning(_,{ _id, input }){
+      input.active = false
       return await cleanings.findByIdAndUpdate(_id,input, {new: true }).populate({path: 'molde', model: 'moldes'});
     },
     async newMachine(_, { input }){

@@ -16,18 +16,24 @@ const cleaningSchema = new Schema({
     required: true
     
   },
-  team: {
-    type: String,
-    required: true
-    
-  },
-  cycles: {
-    type: Number,
-    required: true
-  },
-  counted: {
+  quantity: {
     type: Number,
     required: false
+  },
+  end: {
+    type: String,
+    required: false
+    
+  },
+  shiftEnd: {
+    type: String,
+    required: false
+    
+  },
+  active: {
+    type: Boolean,
+    required: true
+    
   },
   comments: {
     type: String,

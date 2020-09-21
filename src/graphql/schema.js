@@ -21,7 +21,7 @@ const typeDefs = `
         resinesByDate(initial: Date, end: Date): [FlatResine]
         productionByDate(initial: Date, end: Date): [Flat]
         login(name: String, password: String): AuthData!
-        cycles(molde: ID, initial: Date): [Cycles]
+        cycles(cleaning: ID): [Cycles]
         tcycles: [TCycles]
         daytotalrecord: [DayTotalRecord]
         weektotalrecord: [WeekTotalRecord]
@@ -308,9 +308,10 @@ const typeDefs = `
         molde: Molde!
         date: String!
         shift: String!
-        team: String!
-        cycles: Int!
-        counted: Int
+        quantity: Int
+        end: String
+        shiftEnd: String
+        active: Boolean!
         comments: String
 
     }
@@ -319,6 +320,7 @@ const typeDefs = `
     type Mutation {
         newCleaning(_id: ID, input: NewCleaning): Cleaning
         updateCleaning(_id: ID, input: NewCleaning): Cleaning
+        finishCleaning(_id: ID, input: FinishCleaning): Cleaning
 
         newInjectionReport(_id: ID, input: NewInjectionReport): InjectionReport
         updateInjectionReport(_id: ID, input: NewInjectionReport): InjectionReport
@@ -353,9 +355,13 @@ const typeDefs = `
         molde: ID!
         date: String!
         shift: String!
-        team: String!
-        cycles: Int!
         comments: String
+    }
+
+    input FinishCleaning{
+        end: String!
+        shiftEnd: String!
+        quantity: Int!
     }
 
     input NewUser {
