@@ -321,6 +321,47 @@ export const resolvers = {
         return flat
       })
     },
+    async selectedCycles(){
+      const finalDate = new Date()
+      const cleans = await cleanings.find({"active": true})
+      let cycles = []
+
+      for( const item of cleans){
+        const { molde, date, shift } = item
+        const array = await reports.find( {"production.molde": molde, reportDate: { $gte: date, $lte: finalDate }}).sort({ reportDate: 1 })
+        const convert = array.map( item => { 
+          const date = formatDate(item.reportDate);
+          const id = item._id
+          const shift = item.shift
+          const machine = item.machine
+          const production = item.production.map( prod =>{
+            
+            return { 
+              report: id, 
+              date: date, 
+              shift: shift, 
+              machine: machine, 
+              part: prod.partNumber, 
+              molde: prod.molde, 
+              real: prod.real,
+              cycles: prod.cycles
+            }
+          })
+          return production
+        })
+        
+        const flat = [].concat.apply([],convert);
+        if(shift === '2'){
+          const removeItem = flat.find( item => item.date === date && item.shift === '1')
+          cycles = [...cycles, ...flat.filter( item => item.report !== removeItem.report )]
+        }
+        
+        cycles = [...cycles, ...flat]
+      }
+
+      const responses = await Promise.all(cycles)
+      return responses
+    },
     async moldes(){
       return await moldes.find().sort({ _id: 1 });
     },

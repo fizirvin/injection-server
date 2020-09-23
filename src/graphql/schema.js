@@ -22,6 +22,7 @@ const typeDefs = `
         productionByDate(initial: Date, end: Date): [Flat]
         login(name: String, password: String): AuthData!
         cycles(cleaning: ID): [Cycles]
+        selectedCycles: [Cycles]
         tcycles: [TCycles]
         daytotalrecord: [DayTotalRecord]
         weektotalrecord: [WeekTotalRecord]
@@ -33,6 +34,10 @@ const typeDefs = `
     type ReportData{
         totalReports: Int
         reports: [InjectionReport!]
+    }
+
+    type Hola{
+        hola: String
     }
 
     type DayTotalRecord{
