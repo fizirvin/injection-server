@@ -281,7 +281,7 @@ export const resolvers = {
       
       // const after = await cleanings.find({molde, date: { $gt: initial}})
       if(!active ){ finalDate = end+'T23:59:59.000Z'  }
-
+      
       return await reports.find( {"production.molde": molde, reportDate: { $gte: date, $lte: finalDate }})
       .sort({ reportDate: 1 })
       .then( report => {
@@ -310,13 +310,19 @@ export const resolvers = {
 
         if(shift === '2'){
           const removeItem = flat.find( item => item.date === date && item.shift === '1')
-          
-          return flat.filter( item => item.report !== removeItem.report )
+          if(!removeItem){
+            return flat
+          }else{
+            return flat.filter( item => item.report !== removeItem.report )
+          }
         }
         if(!active && shiftEnd === '1'){
           const removeItem = flat.find( item => item.date === end && item.shift === '2')
-          
-          return flat.filter( item => item.report !== removeItem.report )
+          if(!removeItem){ 
+            return flat 
+          } else{
+            return flat.filter( item => item.report !== removeItem.report )
+          }
         }
         return flat
       })
@@ -353,10 +359,10 @@ export const resolvers = {
         const flat = [].concat.apply([],convert);
         if(shift === '2'){
           const removeItem = flat.find( item => item.date === date && item.shift === '1')
-          cycles = [...cycles, ...flat.filter( item => item.report !== removeItem.report )]
+          return cycles = [...cycles, ...flat.filter( item => item.report !== removeItem.report )]
         }
         
-        cycles = [...cycles, ...flat]
+        return cycles = [...cycles, ...flat]
       }
 
       const responses = await Promise.all(cycles)
