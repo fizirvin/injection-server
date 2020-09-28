@@ -21,7 +21,7 @@ app.get('/', (req, res) =>{
   });
 
   app.use('/injection', graphqlHTTP({
-    graphiql: true,
+    graphiql: false,
     schema: schema,
     rootValue: resolvers,
     customFormatErrorFn(err) {
