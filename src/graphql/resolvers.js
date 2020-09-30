@@ -359,13 +359,14 @@ export const resolvers = {
         const flat = [].concat.apply([],convert);
         if(shift === '2'){
           const removeItem = flat.find( item => item.date === date && item.shift === '1')
-          return cycles = [...cycles, ...flat.filter( item => item.report !== removeItem.report )]
+          cycles = [...cycles, ...flat.filter( item => item.report !== removeItem.report )]
         }
         
-        return cycles = [...cycles, ...flat]
+        cycles = [...cycles, ...flat]
       }
-
+      
       const responses = await Promise.all(cycles)
+     
       return responses
     },
     async moldes(){
